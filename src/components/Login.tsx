@@ -30,8 +30,8 @@ const Login = () => {
     return (
         <>
             <main className='h-screen grid place-items-center'>
-                <form className='w-screen h-[100px] flex flex-col items-center gap-4' onSubmit={createUser}>
-                    <h1 className=''>login</h1>
+                <form className='w-screen h-[100px] flex flex-col justify-center items-center gap-4 font-poppins' onSubmit={createUser}>
+                    <h1 className='text-[40px] font-bold'>login</h1>
                     <input className='' value={username} onChange={(e) => setUsername(e.target.value)} type='username' /><br />
                     <input value={password} onChange={(e) => setPassword(e.target.value)} type='password' /><br />
                     <button>login</button>
