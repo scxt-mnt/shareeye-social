@@ -30,11 +30,11 @@ const Login = () => {
     return (
         <>
             <main className='h-screen grid place-items-center bg-indigo-200'>
-                <form className='w-[350px] h-[400px] flex flex-col justify-center items-center gap-4 font-poppins bg-indigo-600 shadow-2xl relative rounded-md' onSubmit={createUser}>
-                    <h1 className='text-[40px] font-bold absolute top-0
+                <form className='w-[350px] h-[420px] flex flex-col justify-center items-center gap-2 font-poppins bg-indigo-700/20 shadow-2xl relative rounded-md backdrop-blur-md border boder-white' onSubmit={createUser}>
+                    <h1 className='text-[40px] font-bold absolute top-6
                     '>login</h1>
-                    <input className='border-2 border-indigo-300 rounded h-10' value={username} onChange={(e) => setUsername(e.target.value)} type='username' /><br />
-                    <input className='border-2 border-indigo-300 rounded h-10' value={password} onChange={(e) => setPassword(e.target.value)} type='password' /><br />
+                    <input className='border-2 border-blue-300 rounded h-[45px] mt-[50px] outline-none' value={username} onChange={(e) => setUsername(e.target.value)} type='username' /><br />
+                    <input className='border-2 border-indigo-300 rounded h-[45px] outline-none' value={password} onChange={(e) => setPassword(e.target.value)} type='password' /><br />
                     <button>login</button>
                 </form>
             </main>
