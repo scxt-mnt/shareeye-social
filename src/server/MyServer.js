@@ -11,9 +11,9 @@ const pass = process.env.DB_PASS;
 const database = process.env.DB_DATABASE;
 const PORT = process.env.PORT_URL || 4000;
 
+app.use(cors());
 app.use(urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cors());
 
 
 const db = mysql.createPool({

@@ -10,16 +10,16 @@ const Login = () => {
         e.preventDefault();
         try {
             const res = await global.post('/', { username: username, password: password });
-            if(res.status === 201){
+            if (res.status === 201) {
                 console.log('user created');
             }
-        }catch (err) {
+        } catch (err) {
             const error = err as AxiosError
             if (error.response?.status === 409) {
                 console.log(error.response.data);
             } if (error.response?.status === 500) {
                 console.log(error.response.data);
-            }else{
+            } else {
                 console.log('unknown error');
             }
         }
@@ -30,9 +30,9 @@ const Login = () => {
     return (
         <>
 
-            <h1>login</h1>
-            <form onSubmit={createUser}>
-                <input value={username} onChange={(e) => setUsername(e.target.value)} type='username' /><br />
+            <form className='h-screen grid place-items-center ' onSubmit={createUser}>
+                <h1 className=''>login</h1>
+                <input className='' value={username} onChange={(e) => setUsername(e.target.value)} type='username' /><br />
                 <input value={password} onChange={(e) => setPassword(e.target.value)} type='password' /><br />
                 <button>login</button>
             </form>
