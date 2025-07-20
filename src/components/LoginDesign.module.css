@@ -1,0 +1,7 @@
+.eyeLogo{
+    display: none;
+}
+
+.password:focus ~  .eyeLogo{
+    display: inline-block;
+}
