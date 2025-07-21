@@ -46,12 +46,3 @@ Edit
 - Optionally, you can integrate real API logic via Axios  
 - Errors are caught and shown to the user  
 
----
-
-## 🛠 Setup Instructions
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/login-project.git
-   cd login-project
-```
