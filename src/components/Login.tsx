@@ -33,7 +33,7 @@ const Login = () => {
     return (
         <>
             <main className='h-screen grid place-items-center bg-indigo-300'>
-                <form className='w-[350px] h-[420px] flex flex-col justify-center items-center gap-2 font-poppins bg-indigo-900/30 shadow-2xl relative rounded-md backdrop-blur-md border boder-white' onSubmit={createUser}>
+                <form className='w-[350px] h-[420px] flex flex-col justify-center items-center gap-2 font-poppins bg-indigo-900/30 shadow-2xl shadow-white relative rounded-md backdrop-blur-md border boder-white ' onSubmit={createUser}>
                     <h1 className='text-[40px] font-bold absolute top-6 text-white'>login</h1>
                     <figure className='relative h-auto'>
                         <input placeholder='username' className={` ${styles.username} 
