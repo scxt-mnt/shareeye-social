@@ -35,11 +35,11 @@ Edit
 - React  
 - TypeScript  
 - TailwindCSS / CSS Modules  
-- Axios (optional)
+- Axios
 
 ---
 
-## 🧠 How It Works
+## ? How It Works
 
 - `useState` manages input states  
 - On form submit, the credentials are validated  
