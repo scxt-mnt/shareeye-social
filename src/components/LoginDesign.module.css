@@ -2,6 +2,7 @@
     display: none;
 }
 
-.password:focus ~  .eyeLogo{
+.password:focus ~ .eyeLogo{
     display: inline-block;
+    cursor: pointer;
 }

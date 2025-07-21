@@ -37,17 +37,20 @@ const Login = () => {
                     <h1 className='text-[40px] font-bold absolute top-6 text-white'>login</h1>
                     <figure className='relative h-auto'>
                         <input placeholder='username' className={` ${styles.username} 
-                        border-2 border-blue-300 rounded-xl h-[45px] mt-[50px] outline-none placeholder:text-indigo-400`} value={username} onChange={(e) => setUsername(e.target.value)} type='username' /><br />
-                        <img className='absolute top-[55px] right-[10.5px] h-[30px]' src={usernameLogo} alt="can't load image" />
+                        border-2 border-blue-300 rounded-xl h-[45px] mt-[80px] outline-none placeholder:text-indigo-400 p-1`} value={username} onChange={(e) => setUsername(e.target.value)} type='username' /><br />
+                        <img className='absolute top-[85px] right-[10.5px] h-[30px]' src={usernameLogo} alt="can't load image" />
                     </figure>
 
-                    <figure className='relative'>                    <input placeholder='password' className={` ${styles.password} border-2 border-indigo-300 rounded-xl h-[45px] outline-none placeholder:text-indigo-400`} value={password} onChange={(e) => setPassword(e.target.value)} type='password' /><br />
+                    <figure className='relative'>                    
+                        <input placeholder='password' className={` ${styles.password} border-2 border-indigo-300 rounded-xl h-[45px] outline-none placeholder:text-indigo-400 p-1`} value={password} onChange={(e) => setPassword(e.target.value)} type='password' /><br />
                         <img className={`${styles.eyeLogo}
                         absolute top-3 right-3 h-[25px] `} src={passwordLogo} alt="can't load image" />
 
                     </figure>
-                    <button className='mt-10 bg-indigo-600 pl-10 pr-10 p-1 rounded-md font-bold text-white '>sign in</button>
-
+                    <div></div>
+                    <button className='mt-4 bg-indigo-500 pl-10 pr-10 p-[5px] rounded-md font-bold text-white border '>sign in</button>
+                    <p className='text-white mt-7'>no account? <a className='font-bold text-indigo-600 shadow-black shadow-xl shadow-white rounded-md' href="">sign up</a></p>
+ 
                 </form>
             </main>
         </>
