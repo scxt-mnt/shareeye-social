@@ -21,8 +21,8 @@ src/
 ├── components/
 │ └── Login.tsx # Main login form component
 ├── styles/
-│ └── LoginDesign.module.css # Scoped CSS (or Tailwind in JSX)
-├── publicInstance.ts # Axios config or global variables (if any)
+│ └── LoginDesign.module.css # Scoped CSS 
+├── publicInstance.ts # Axios config or global variables 
 
 yaml
 Copy
