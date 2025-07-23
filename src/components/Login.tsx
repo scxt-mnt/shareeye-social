@@ -23,7 +23,7 @@ const Login = () => {
             } if (error.response?.status === 500) {
                 console.log(error.response.data);
             } else {
-                console.log('unknown error');
+                console.log('unknown error', error);
             }
         }
     }
@@ -41,16 +41,17 @@ const Login = () => {
                         <img className='absolute top-[85px] right-[10.5px] h-[30px]' src={usernameLogo} alt="can't load image" />
                     </figure>
 
-                    <figure className='relative'>                    
+                    <figure className='relative'>
                         <input placeholder='password' className={` ${styles.password} border-2 border-indigo-300 rounded-xl h-[45px] outline-none placeholder:text-indigo-400 p-1`} value={password} onChange={(e) => setPassword(e.target.value)} type='password' /><br />
-                        <img className={`${styles.eyeLogo}
-                        absolute top-3 right-3 h-[25px] `} src={passwordLogo} alt="can't load image" />
-
+                        <button className={`${styles.eyeLogo} absolute top-3 right-3 h-auto`}>
+                            <img className={`
+                         h-[25px] `} src={passwordLogo} alt="can't load image"/>
+                        </button>
                     </figure>
                     <div></div>
                     <button className='mt-4 bg-indigo-500 pl-10 pr-10 p-[5px] rounded-md font-bold text-white border '>sign in</button>
                     <p className='text-white mt-7'>no account? <a className='font-bold text-indigo-600 shadow-black shadow-xl shadow-white rounded-md' href="">sign up</a></p>
- 
+
                 </form>
             </main>
         </>
