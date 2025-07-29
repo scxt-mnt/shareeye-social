@@ -1,12 +1,12 @@
+import { Link } from "react-router-dom"
 
-
-const nav = () => {
+const Nav = () => {
   return (
    <>
    <nav className="bg-transparent w-screen h-[70px] absolute">
       <div className="absolute right-3 top-3 font-poppins font-bold">
-        <button className="h-[35px] w-[90px] bg-blue-400 mr-4 text-white rounded-md border ">Sign up</button>
-        <button className="h-[35px] w-[90px] bg-blue-400 text-white rounded-md border">Sign in</button>
+        <Link to="/SignUp"><button className="h-[35px] w-[90px] bg-blue-400 mr-4 text-white rounded-md border ">Sign up</button></Link>
+        <Link to="/Login"><button className="h-[35px] w-[90px] bg-blue-400 text-white rounded-md border">Sign in</button></Link>
       </div>
    </nav>
 
@@ -14,4 +14,4 @@ const nav = () => {
   )
 }
 
-export default nav
+export default Nav

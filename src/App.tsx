@@ -1,5 +1,5 @@
-import Login from './components/Login';
-import Nav from './components/nav'
+import RoutesComponents from './public/routes'
+import Nav from './components/Nav'
 
 function App() {
  
@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <Nav/>
-      <Login/>
+      <RoutesComponents/>
     </>
   )
 }
