@@ -44,6 +44,3 @@ app.post('/create', (req, res) => {
 
     })
 })
-
-console.log(user)
-

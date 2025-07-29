@@ -10,7 +10,6 @@ const Login = () => {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [toShow, setToShow] = useState<boolean>(false);
-    const [toChange, setToChange] = useState<string>("");
 
     const createUser = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -37,7 +36,6 @@ const Login = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
-        setToChange(e.target.value);
     }
 
 
@@ -56,7 +54,7 @@ const Login = () => {
                         <input placeholder='password' className={` border-2 border-indigo-300 rounded-xl h-[45px] outline-none placeholder:text-indigo-400 p-1`} value={password} onChange={handleChange} type={`${toShow ? 'text' : 'password'}`} /><br />
 
 
-                        {toChange &&
+                        {password &&
                             <>
                             {toShow === false &&
                             <button onClick={handleClick} className={`absolute top-3 right-3 `}>
@@ -68,7 +66,7 @@ const Login = () => {
 
 
 
-                    {toChange && 
+                    {password && 
                     <>
                          {toShow === true && <button onClick={handleClick} className={`absolute top-3 right-3 h-auto`}>
                             <img className={`
