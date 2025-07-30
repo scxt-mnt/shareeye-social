@@ -2,6 +2,7 @@ import express, { urlencoded } from 'express';
 import mysql from 'mysql';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import jwt from 'jsonwebtoken'
 dotenv.config();
 
 const app = express();
@@ -27,7 +28,7 @@ app.listen(PORT, () => {
     console.log(`listening to port ${PORT}`);
 });
 
-app.post('/create', (req, res) => {
+app.post('/SignUp', (req, res) => {
     const username = req.body.username;
     const password = req.body.password
 
