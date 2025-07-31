@@ -11,6 +11,7 @@ const user = process.env.DB_USER;
 const pass = process.env.DB_PASS;
 const database = process.env.DB_DATABASE;
 const PORT = process.env.PORT_URL || 4000;
+const SECRET = process.env.SECRET_KEY;
 
 app.use(cors());
 app.use(urlencoded({ extended: false }));
@@ -54,11 +55,22 @@ app.post('/SignUp', (req, res) => {
         const queries = 'SELECT * FROM userdata WHERE username = ? AND password = ?'
 
         db.query(queries, [username, password], (err, result) => {
-            const resu = result[0]
+            if(err) return res.status(500).send('database error occurred')
+
+            const users = result[0]
 
              if(result.length === 0){
                 console.log("user not found");
             }
+
+            const tokens = jwt.sign({ id: users.id, user: users.username }, SECRET, { expiresIn: '1hr' } )
+
+            res.cookie('token', tokens, {
+                httpOnly: true,
+                secure: false,
+                sameSite: 'strict',
+                maxAge: 1000 * 60 * 60
+            })
         })
         
     })
