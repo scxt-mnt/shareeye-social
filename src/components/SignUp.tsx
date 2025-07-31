@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import global from '../publicInstance';
+import SignUp from '../publicInstance';
 import { AxiosError } from 'axios';
 import usernameLogo from '../assets/username.png'
 import closedPassword from '../assets/closedPassword.png';
 import passwordLogo from '../assets/password.png'
+import { Link } from 'react-router-dom'
 
 
 const Login = () => {
@@ -14,7 +15,7 @@ const Login = () => {
     const createUser = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const res = await global.post('/', { username: username, password: password });
+            const res = await SignUp.post('/', { username: username, password: password });
             if (res.status === 201) {
                 console.log('user created');
             }
@@ -78,7 +79,7 @@ const Login = () => {
                     </figure>
                     <div></div>
                     <button className='mt-4 bg-indigo-500 pl-10 pr-10 p-[5px] rounded-md font-bold text-white border '>sign in</button>
-                    <p className='text-white mt-7'>no account? <a className='font-bold text-indigo-600 shadow-black shadow-xl shadow-white rounded-md' href="">Sign Up</a></p>
+                    <p className='text-white mt-7'>Already have account? <Link to='/SignIn' className='font-bold text-indigo-600 shadow-black shadow-xl shadow-white rounded-md' >Log in</Link></p>
 
                 </form>
             </main>

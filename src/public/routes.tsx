@@ -7,8 +7,8 @@ const routes = () => {
   <>
         <Routes>
             <Route path="/" element={<LandingPage />}/> 
-            <Route path="/Login" element={<SignUp />} />
-            <Route path="/SignUp" element={<Login />} />
+            <Route path="/SignIn" element={<Login />} />
+            <Route path="/SignUp" element={<SignUp />} />
         </Routes>
   </>
   )

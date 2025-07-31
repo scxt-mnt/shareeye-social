@@ -44,4 +44,21 @@ app.post('/SignUp', (req, res) => {
 
 
     })
+
 })
+
+ app.post('/SignIn', (req, res) => {
+        const username = req.body.username
+        const password = req.body.password
+
+        const queries = 'SELECT * FROM userdata WHERE username = ? AND password = ?'
+
+        db.query(queries, [username, password], (err, result) => {
+            const resu = result[0]
+
+             if(result.length === 0){
+                console.log("user not found");
+            }
+        })
+        
+    })
