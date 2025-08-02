@@ -1,11 +1,13 @@
 import RoutesComponents from './public/routes'
 
 function App() {
- 
- 
+
+
   return (
     <>
-      <RoutesComponents/>
+      <main className='h-screen'>
+        <RoutesComponents />
+      </main>
     </>
   )
 }
