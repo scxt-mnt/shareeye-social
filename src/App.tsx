@@ -5,7 +5,7 @@ function App() {
 
   return (
     <>
-      <main className='h-screen'>
+      <main className='h-screen relative bg-violet-200'>
         <RoutesComponents />
       </main>
     </>
