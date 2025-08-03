@@ -5,12 +5,12 @@ const LandingPage = () => {
   return (
     <>
       <NavBar />
-      <figure className='absolute left-[135px] top-[140px] h-auto'>
-        <img className='h-[300px]' src={greetImage} />
+      <figure className='absolute left-[110px] top-[140px] h-auto'>
+        <img className='h-[300px]  ' src={greetImage} />
 
-        <figcaption className='font-poppins font-bold'>
-          <p>Explore new things!</p>
-        </figcaption>
+        <figcaption className='font-poppins font-bold text-2xl text-violet-500'>
+          <p className='-ml-3'>Share your ideas</p>
+        </figcaption> 
       </figure>
 
     </>
