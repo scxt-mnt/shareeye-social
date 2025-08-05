@@ -39,38 +39,44 @@ app.post('/SignUp', (req, res) => {
             if (err.code === 'ER_DUP_ENTRY') {
                 return res.status(409).send('user already exist');
             }
-                return res.status(500).send('database error');
+            return res.status(500).send('database error');
         }
-            return res.status(201).send(`successfully created user`);
+        return res.status(201).send(`successfully created user`);
 
 
     })
 
 })
 
- app.post('/SignIn', (req, res) => {
-        const username = req.body.username
-        const password = req.body.password
+app.post('/SignIn', (req, res) => {
+    const username = req.body.username
+    const password = req.body.password
 
-        const queries = 'SELECT * FROM userdata WHERE username = ? AND password = ?'
+    const queries = 'SELECT * FROM userdata WHERE username = ? AND password = ?'
 
-        db.query(queries, [username, password], (err, result) => {
-            if(err) return res.status(500).send('database error occurred')
+    db.query(queries, [username, password], (err, result) => {
+        if (err) return res.status(500).send('database error occurred')
 
-            const users = result[0]
 
-             if(result.length === 0){
-                console.log("user not found");
-            }
+        if (result.length === 0) {
+            return res.status(401).send('user not found');
+        }
 
-            const tokens = jwt.sign({ id: users.id, user: users.username }, SECRET, { expiresIn: '1hr' } )
+        const users = result[0]
 
-            res.cookie('token', tokens, {
-                httpOnly: true,
-                secure: false,
-                sameSite: 'strict',
-                maxAge: 1000 * 60 * 60
-            })
+
+        const tokens = jwt.sign({ id: users.id, user: users.username }, SECRET, { expiresIn: '1hr' })
+
+
+
+        res.cookie('token', tokens, {
+            httpOnly: true,
+            secure: false,
+            sameSite: 'strict',
+            maxAge: 1000 * 60 * 60
         })
-        
+
+        res.status(200).send({ msg: 'successfully log in', user: users.username })
     })
+
+})
