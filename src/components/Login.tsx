@@ -3,21 +3,29 @@ import { AxiosError } from 'axios';
 import usernameLogo from '../assets/username.png'
 import closedPassword from '../assets/closedPassword.png';
 import passwordLogo from '../assets/password.png'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { SignIn } from '../publicInstance';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../userSlice'
 
 const Login = () => {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [toShow, setToShow] = useState<boolean>(false);
+    const dispatch = useDispatch();
+    const navigateTo = useNavigate();
+    
 
     const createUser = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
             const res = await SignIn.post('/', { username: username, password: password });
-            if (res.status === 201) {
-                console.log('user created');
+            if (res.status === 200) {
+                console.log(res.data.msg);
+                dispatch(setUser({id: res.data.id, user: res.data.user}));
+                navigateTo('/DashBoard');
             }
+
         } catch (err) {
             const error = err as AxiosError
             if (error.response?.status === 409) {
