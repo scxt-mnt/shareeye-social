@@ -1,11 +1,14 @@
-import type { RootState } from  "../Store"
+import type { RootState } from "../Store"
 import { useSelector } from "react-redux"
 
 const DashBoard = () => {
   const selector = useSelector((state: RootState) => state.user.value);
   return (
     <>
-       <h1>{selector.username}</h1>       
+      {selector.isLog ? <>
+      <h1>{`HELLO! ${selector.username}`}</h1>
+      </> 
+        : <h1>{`Authentication error`}</h1>}
     </>
   )
 }

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 import { AxiosError } from 'axios';
 import usernameLogo from '../assets/username.png'
@@ -14,20 +15,23 @@ const Login = () => {
     const [toShow, setToShow] = useState<boolean>(false);
     const dispatch = useDispatch();
     const navigateTo = useNavigate();
-    
+
 
     const createUser = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
             const res = await SignIn.post('/', { username: username, password: password });
             if (res.status === 200) {
+                dispatch(setUser({ id: res.data.id, user: res.data.user, isLog: res.data.isLog }));
                 console.log(res.data.msg);
-                dispatch(setUser({id: res.data.id, user: res.data.user}));
-                navigateTo('/DashBoard');
+                navigateTo(res.data.isLog ? "/DashBoard" : "/Login");
             }
 
         } catch (err) {
             const error = err as AxiosError
+            if (error.response?.status === 401) {
+                dispatch(setUser({ isLog: true }));
+            }
             if (error.response?.status === 409) {
                 console.log(error.response.data);
             } if (error.response?.status === 500) {
@@ -64,24 +68,24 @@ const Login = () => {
 
                         {password &&
                             <>
-                            {toShow === false &&
-                            <button onClick={handleClick} className={`absolute top-3 right-3 `}>
-                                <img className={`h-[25px]`} src={passwordLogo} alt="can't load image" />
-                            </button>}
+                                {toShow === false &&
+                                    <button onClick={handleClick} className={`absolute top-3 right-3 `}>
+                                        <img className={`h-[25px]`} src={passwordLogo} alt="can't load image" />
+                                    </button>}
                             </>
                         }
 
 
 
 
-                    {password && 
-                    <>
-                         {toShow === true && <button onClick={handleClick} className={`absolute top-3 right-3 h-auto`}>
-                            <img className={`
+                        {password &&
+                            <>
+                                {toShow === true && <button onClick={handleClick} className={`absolute top-3 right-3 h-auto`}>
+                                    <img className={`
                          h-[25px] `} src={closedPassword} alt="can't load image" />
-                        </button>}
-                    </> }
-                       
+                                </button>}
+                            </>}
+
 
                     </figure>
                     <div></div>

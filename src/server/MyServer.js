@@ -65,7 +65,7 @@ app.post('/SignIn', (req, res) => {
         const users = result[0]
 
 
-        const tokens = jwt.sign({ id: users.id, user: users.username }, SECRET, { expiresIn: '1hr' })
+        const tokens = jwt.sign({ id: users.id, user: users.username}, SECRET, { expiresIn: '1hr' })
 
 
 
@@ -76,7 +76,7 @@ app.post('/SignIn', (req, res) => {
             maxAge: 1000 * 60 * 60
         })
 
-        res.status(200).send({ msg: 'successfully log in', user: users.username })
+        res.status(200).send({ msg: 'successfully log in', user: users.username, isLog: true });
     })
 
 })
