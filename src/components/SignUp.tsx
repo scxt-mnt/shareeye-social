@@ -5,12 +5,14 @@ import usernameLogo from '../assets/username.png'
 import closedPassword from '../assets/closedPassword.png';
 import passwordLogo from '../assets/password.png'
 import { Link } from 'react-router-dom'
-
-
+import { useNavigate } from 'react-router-dom';
+ 
 const Login = () => {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [toShow, setToShow] = useState<boolean>(false);
+    const navigate = useNavigate();
+
 
     const createUser = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -18,6 +20,7 @@ const Login = () => {
             const res = await SignUp.post('/', { username: username, password: password });
             if (res.status === 201) {
                 console.log('user created');
+                navigate('/Form-about');
             }
         } catch (err) {
             const error = err as AxiosError
