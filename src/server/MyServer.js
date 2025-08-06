@@ -3,7 +3,10 @@ import mysql from 'mysql';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import jwt from 'jsonwebtoken'
+import cookieParser from 'cookie-parser'
+import { log } from 'console';
 dotenv.config();
+
 
 const app = express();
 const host = process.env.DB_HOST;
@@ -13,10 +16,13 @@ const database = process.env.DB_DATABASE;
 const PORT = process.env.PORT_URL || 4000;
 const SECRET = process.env.SECRET_KEY;
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true
+}));
 app.use(urlencoded({ extended: false }));
 app.use(express.json());
-
+app.use(cookieParser());
 
 const db = mysql.createPool({
     host: host,
@@ -41,10 +47,26 @@ app.post('/SignUp', (req, res) => {
             }
             return res.status(500).send('database error');
         }
-        return res.status(201).send(`successfully created user`);
 
 
-    })
+        if (result.length === 0) {
+            return console.log('user not created');
+        }
+
+        const token = jwt.sign({ id: result.insertId }, SECRET, { expiresIn: '1hr' });
+
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: false,
+            sameSite: 'lax',
+            maxAge: 1000 * 60 * 60,
+            path: '/'
+        })
+
+        res.status(201).send(`successfully created user`);
+
+    }
+    )
 
 })
 
@@ -65,7 +87,7 @@ app.post('/SignIn', (req, res) => {
         const users = result[0]
 
 
-        const tokens = jwt.sign({ id: users.id, user: users.username}, SECRET, { expiresIn: '1hr' })
+        const tokens = jwt.sign({ id: users.id, user: users.username }, SECRET, { expiresIn: '1hr' })
 
 
 
@@ -75,8 +97,22 @@ app.post('/SignIn', (req, res) => {
             sameSite: 'strict',
             maxAge: 1000 * 60 * 60
         })
+        return res.status(200).send({ msg: 'successfully log in', user: users.username, isLog: true });
 
-        res.status(200).send({ msg: 'successfully log in', user: users.username, isLog: true });
     })
 
+})
+
+app.get('/Form-about', (req, res) => {
+
+    const token = req.cookies.token
+
+    console,log(token)
+    if(token){
+        if (!token) {
+        return console.log('no cookie found');
+    }
+    console.log(token)
+    const decodedData = jwt.verify(token, SECRET)
+    res.status(200).send({ id: decodedData.id })}
 })

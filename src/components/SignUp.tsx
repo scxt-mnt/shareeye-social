@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SignUp from '../publicInstance';
 import { AxiosError } from 'axios';
 import usernameLogo from '../assets/username.png'
@@ -6,13 +6,16 @@ import closedPassword from '../assets/closedPassword.png';
 import passwordLogo from '../assets/password.png'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
- 
+import { useDispatch } from 'react-redux';
+import { setUser } from '../userSlice';
+import { FormAbout } from '../publicInstance';
+
 const Login = () => {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [toShow, setToShow] = useState<boolean>(false);
     const navigate = useNavigate();
-
+    const dispatch = useDispatch();
 
     const createUser = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -22,6 +25,7 @@ const Login = () => {
                 console.log('user created');
                 navigate('/Form-about');
             }
+
         } catch (err) {
             const error = err as AxiosError
             if (error.response?.status === 409) {
@@ -41,6 +45,21 @@ const Login = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
     }
+    useEffect(() => {
+            console.log('hello')
+        try {
+            const getToken = async () => {
+                const resGet = await FormAbout.get('/');
+                if (resGet.status === 200) {
+                    dispatch(setUser({ id: resGet.data.id }))
+                }
+            }
+            getToken();
+        } catch (e) {
+            console.log('no session')
+        }
+    },[])
+
 
 
     return (
@@ -60,24 +79,24 @@ const Login = () => {
 
                         {password &&
                             <>
-                            {toShow === false &&
-                            <button onClick={handleClick} className={`absolute top-3 right-3 `}>
-                                <img className={`h-[25px]`} src={passwordLogo} alt="can't load image" />
-                            </button>}
+                                {toShow === false &&
+                                    <button onClick={handleClick} className={`absolute top-3 right-3 `}>
+                                        <img className={`h-[25px]`} src={passwordLogo} alt="can't load image" />
+                                    </button>}
                             </>
                         }
 
 
 
 
-                    {password && 
-                    <>
-                         {toShow === true && <button onClick={handleClick} className={`absolute top-3 right-3 h-auto`}>
-                            <img className={`
+                        {password &&
+                            <>
+                                {toShow === true && <button onClick={handleClick} className={`absolute top-3 right-3 h-auto`}>
+                                    <img className={`
                          h-[25px] `} src={closedPassword} alt="can't load image" />
-                        </button>}
-                    </> }
-                       
+                                </button>}
+                            </>}
+
 
                     </figure>
                     <div></div>
