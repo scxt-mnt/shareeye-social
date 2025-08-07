@@ -2,9 +2,8 @@ import express, { urlencoded } from 'express';
 import mysql from 'mysql';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import jwt, { JsonWebTokenError } from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 import cookieParser from 'cookie-parser'
-import { log } from 'console';
 dotenv.config();
 
 
@@ -107,12 +106,11 @@ app.get('/Form-about', (req, res) => {
 
     const token = req.cookies.token
 
-    console,log(JsonWebTokenError)
     if(token){
         if (!token) {
         return console.log('no cookie found');
     }
     console.log(token)
     const decodedData = jwt.verify(token, SECRET)
-    res.status(200).send({ id: decodedData.id })}
+    res.status(200).send({ id: decodedData.id, isLog: true})}
 })
