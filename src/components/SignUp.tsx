@@ -45,22 +45,7 @@ const Login = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
     }
-    useEffect(() => {
-            console.log('hello')
-        try {
-            const getToken = async () => {
-                const resGet = await FormAbout.get('/');
-                if (resGet.status === 200) {
-                    dispatch(setUser({ id: resGet.data.id }))
-                }
-            }
-            getToken();
-        } catch (e) {
-            console.log('no session')
-        }
-    },[])
-
-
+    
 
     return (
         <>
