@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import SignUp from '../publicInstance';
 import { AxiosError } from 'axios';
 import usernameLogo from '../assets/username.png'
@@ -6,16 +6,12 @@ import closedPassword from '../assets/closedPassword.png';
 import passwordLogo from '../assets/password.png'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setUser } from '../userSlice';
-import { FormAbout } from '../publicInstance';
 
 const Login = () => {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [toShow, setToShow] = useState<boolean>(false);
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const createUser = async (e: React.FormEvent) => {
         e.preventDefault();
