@@ -27,7 +27,7 @@ const Slice = createSlice({
         setLogOut(state, action) {
             state.value.id = null
             state.value.username = ''
-            state.value.isLog = false
+            state.value.isLog = action.payload.isLog
         }
     }
 })
