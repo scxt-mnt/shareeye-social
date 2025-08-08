@@ -35,11 +35,11 @@ const Form = () => {
                     <h1>first name</h1>
                     <input className='w-[13rem] ' type='text' /></section>
                 <br />
-                <section className='-translate-y-[130px]'>
+                <section className='-translate-y-[150px]'>
                     <h1>last name</h1>
                     <input className='w-[13rem] h-[2rem]' type='text' />
                 </section>
-                <section className='-translate-y-[170px]'>
+                <section className='-translate-y-[220px]'>
                     <h1>bio</h1>
                     <textarea className='w-[13rem] h-[8rem]'></textarea></section>
             </main>
