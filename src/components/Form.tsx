@@ -27,7 +27,7 @@ const Form = () => {
             console.log('no session')
 
         }
-    }, [])
+    })
 
 
     const handleNameFocus = () => {
@@ -52,19 +52,19 @@ const Form = () => {
     return (
         <>
 
-            {selector.isLog ? <main className='absolute h-screen w-screen grid place-items-center font-poppins text-lg'>
-                <h1 className='text-2xl font-bold'>{`Please tell us about yourself`}</h1>
-                <section className='h-[100px]'>
-                    <h1 className={`pointer-events-none  transition-transform  duration-1000 ${nameClick ? 'translate-y-0 transiton-text-md' : 'translate-y-[26px] text-sm text-gray-500'} `}>first name</h1>
-                    <input onFocus={handleNameFocus} onBlur={handleNameBlur} className='nameForm w-[13rem]' type='text' /></section>
+            {selector.isLog ? <main className='absolute h-screen w-screen grid place-content-center font-poppins text-lg gap-5'>
+                <h1 className='text-2xl font-bolds absolute left-[20px] top-10 font-bold text-violet-600'>{`Please tell us about yourself`}</h1>
+                <section className='bg-violet-700 h-[85px] w-[300px] pl-5 rounded-xl pt-3 -mb-4'>
+                    <h1 className={`pointer-events-none  transition-transform duration-1000 ml-2 ${nameClick ? 'translate-y-0 transiton-text-md text-white' : 'translate-y-[23.5px] text-sm text-gray-500'} `}>first name</h1>
+                    <input  onFocus={handleNameFocus} onBlur={handleNameBlur} className='nameForm w-[15rem] rounded' type='text' /></section>
                 <br />
-                <section className=' transform -translate-y-[200px]'>
-                    <h1 className={`pointer-events-none transition-transform  duration-1000 ${lNameClick ? 'translate-y-0 transiton-text-md' : 'translate-y-[26px] text-sm text-gray-500'} `}>last name</h1>
-                    <input onFocus={handleLnameFocus} onBlur={handleLnameBlur} className='w-[13rem] h-[2rem]' type='text' />
+                <section className='bg-violet-700 h-[85px] w-[300px] pl-5 rounded-xl pt-2 '>
+                    <h1 className={`pointer-events-none transition-transform  duration-1000 ml-2 ${lNameClick ? 'translate-y-0 transiton-text-md text-white' : 'translate-y-[26px] text-sm text-gray-500'} `}>last name</h1>
+                    <input onFocus={handleLnameFocus} onBlur={handleLnameBlur} className='w-[15rem] h-[2rem]' type='text' />
                 </section>
-                <section className='-translate-y-[220px]'>
-                    <h1 className={`pointer-events-none transition-transform  duration-1000 ${BioClick ? 'translate-y-0 transiton-text-md' : 'translate-y-[26px] text-sm text-gray-500'} `}>bio</h1>
-                    <textarea onFocus={handleBioFocus} onBlur={handleBioBlur} className='w-[13rem] h-[8rem]'></textarea></section>
+                <section className='bg-violet-700 h-[150px] w-[300px] pl-5 rounded-xl pt-3 '>
+                    <h1 className={`pointer-events-none transition-transform  duration-1000 ml-2 ${BioClick ? 'translate-y-0 transiton-text-md text-white' : 'translate-y-[26px] text-sm text-gray-500'} `}>bio</h1>
+                    <textarea onFocus={handleBioFocus} onBlur={handleBioBlur} className='w-[15rem] h-[5rem]'></textarea></section>
             </main>
                 : <h1>auth error</h1>
 
