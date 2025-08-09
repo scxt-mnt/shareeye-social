@@ -33,10 +33,13 @@ Edit
 ## ⚙️ Technologies Used
 
 - React  
-- TypeScript  
+- TypeScript
+- JavaScript
 - TailwindCSS / CSS Modules  
 - Axios
-
+- redux
+- jwt
+- cookie-parser
 ---
 
 ## ? How It Works
