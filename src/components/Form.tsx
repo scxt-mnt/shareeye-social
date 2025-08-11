@@ -60,7 +60,7 @@ const Form = () => {
                     font-bolds  top-10 font-bold text-white whitespace-pre border-b-4 border-violet-300 z-20 w-20'>{`Please tell us 
 about yourself`}</h1>
                 <section className='  border-t-4 border-white  z-20 h-[380px] relative flex flex-col justify-center gap-5 pr-[7px] pl-[10px]  '>
-                    <section className={`border-r-[6px] transition-border duration-1000 border-white  border-white  h-[85px] w-[300px] pl-5 pt-3 -mb-4 z-20   relative ${nameClick ? 'border-violet-900' : 'border-white'}`}>
+                    <section className={`border-r-[6px] transition-border duration-1000 h-[85px] w-[300px] pl-5 pt-3 -mb-4 z-20   relative ${nameClick ? 'border-violet-900' : 'border-white'}`}>
                         <h1 className={`pointer-events-none  transition-transform duration-1000 ml-2 absolute z-20 left-[30px] ${nameClick ? 'transiton-text-md text-violet-100 -translate-y-[9px]' : 'translate-y-[22px] text-sm text-gray-500'} `}>first name</h1>
                         <div className={`absolute right-2 bg-violet-900 h-10 w-10 rounded-full z-10  ${nameClick ? 'animate-bounce' : 'animate-none'}`}>
                             <div className='absolute bg-white h-[10px] w-[20px] rounded-full'></div>
