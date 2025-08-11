@@ -14,7 +14,7 @@ const Form = () => {
 
 
     useEffect(() => {
-         console.log('hello')
+        console.log('hello')
         try {
             const getToken = async () => {
                 const resGet = await FormAbout.get('/');
@@ -62,7 +62,13 @@ about yourself`}</h1>
                 <section className='  border-t-4 border-white  z-20 h-[380px] relative flex flex-col justify-center gap-5 pr-[7px] pl-[10px]  '>
                     <section className={`border-r-[6px] transition-border duration-1000 border-white  border-white  h-[85px] w-[300px] pl-5 pt-3 -mb-4 z-20   relative ${nameClick ? 'border-violet-900' : 'border-white'}`}>
                         <h1 className={`pointer-events-none  transition-transform duration-1000 ml-2 absolute z-20 left-[30px] ${nameClick ? 'transiton-text-md text-violet-100 -translate-y-[9px]' : 'translate-y-[22px] text-sm text-gray-500'} `}>first name</h1>
-                        <input onFocus={handleNameFocus} onBlur={handleNameBlur} className='nameForm w-[15rem] rounded outline-none absolute left-[27px] top-[30px] hover:border-violet-900 ' type='text' /></section>
+                        <div className={`absolute right-2 bg-violet-900 h-10 w-10 rounded-full z-10  ${nameClick ? 'animate-bounce' : 'animate-none'}`}>
+                            <div className='absolute bg-white h-[10px] w-[20px] rounded-full'></div>
+                            <div className='absolute left-[10px] bg-black h-[5px] w-[5px] rounded-full'></div>
+
+                        </div>
+                        <div className={`z-0 absolute right-0 top-[20px] bg-violet-900 h-[20px] w-[30px] ${nameClick ? 'animate-spin' : 'animate-none'}`}></div>
+                        <input onFocus={handleNameFocus} onBlur={handleNameBlur} className='nameForm w-[15rem] rounded outline-none absolute left-[27px] top-[30px] hover:border-violet-900 z-10 ' type='text' /></section>
                     <br />
                     <section className={`border-l-[6px] transition-border duration-1000 h-[85px] w-[300px] pl-5  pt-2 z-20 relative ${lNameClick ? 'border-violet-900' : 'border-white'}`}>
                         <h1 className={`pointer-events-none transition-transform duration-1000 ml-2 z-20 absolute left-[32px] ${lNameClick ? '-translate-y-[6px] transiton-text-md text-violet-100 text-white' : 'translate-y-[26px] text-sm text-gray-500'} `}>last name</h1>
