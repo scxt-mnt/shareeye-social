@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import SignUp from '../publicInstance';
 import { AxiosError } from 'axios';
 import usernameLogo from '../assets/username.png'
