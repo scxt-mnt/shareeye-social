@@ -21,7 +21,7 @@ const Form = () => {
 
     useEffect(() => {
 
-        if (loading.current) loading.current.style.display = 'block';
+        if (loading.current) loading.current.style.visibility = 'visible';
         try {
             const getToken = async () => {
                 const resGet = await FormAbout.get('/');
@@ -34,7 +34,7 @@ const Form = () => {
 
             console.log('no session', e);
 
-        } setTimeout(() => { if (loading.current) loading.current.style.display = 'none'; }, 5000);
+        } setTimeout(() => { if (loading.current) loading.current.style.visibility = 'hidden'; }, 3000);
 
 
     }, [dispatch])
@@ -69,8 +69,8 @@ const Form = () => {
         <>
 
             {selector.isLog ? <main className='absolute h-screen w-screen grid place-content-center font-poppins text-lg bg-violet-400 gap-4'>
-                <div className=' border-r-4 bg-violet-700 h-[300px] w-[300px] absolute rounded-full z-0'></div>
-                <div className=' border-l-4 bg-violet-800 h-[200px] w-[200px] absolute rounded-full z-0 bottom-0 right-0'></div>
+                <div className='border-r-4 bg-violet-700 h-[300px] w-[300px] absolute rounded-full z-0'></div>
+                <div className='border-l-4 bg-violet-800 h-[200px] w-[200px] absolute rounded-full z-0 bottom-0 right-0'></div>
                 <div ref={loading} className=' h-screen w-screen absolute grid place-content-center z-30 bg-white/10 backdrop-blur-md'>
                     <div className='animate-pulse h-30 w-30 relative left-[10px]'>
                         <div className={`${styles.loadingAnimation} bg-violet-900 h-10 w-10 rounded-full z-10 -mb-7 animate-bounce `}>
@@ -78,7 +78,7 @@ const Form = () => {
                             <div className='h-[10px] w-[2px] bg-violet-900'></div>
                             <div className={`bg-violet-900 h-[20px] w-[30px] animate-spin absolute top-[25px]`}></div></div>
                     </div>
-                    <div className='h-[10px] w-[50px] bg-violet-900 relative top-[40px]'></div>
+                    <div className='h-[10px] w-[50px] bg-violet-900 relative left-[3px] top-[40px]'></div>
                 </div>
                 <h1 className='text-2xl 
                     font-bolds  top-10 font-bold text-white whitespace-pre border-b-4 border-violet-300 z-20 w-20'>{`Please tell us 
