@@ -108,7 +108,7 @@ app.get('/Form-about', (req, res) => {
 
     if(token){
         if (!token) {
-        return console.log('no cookie found');
+        return res.status(401).send('no cookies found');
     }
     console.log(token)
     const decodedData = jwt.verify(token, SECRET)
