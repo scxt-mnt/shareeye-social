@@ -105,12 +105,10 @@ app.post('/SignIn', (req, res) => {
 app.get('/Form-about', (req, res) => {
 
     const token = req.cookies.token
-
-    if(token){
-        if (!token) {
+       if (!token) {
         return res.status(400).send('no cookies found');
     }
-    console.log(token)
+    if(token){
     const decodedData = jwt.verify(token, SECRET)
     res.status(200).send({ id: decodedData.id, isLog: true})}
 })
