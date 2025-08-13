@@ -28,13 +28,16 @@ const Form = () => {
                 if (resGet.status === 200) {
                     dispatch(setUser({ id: resGet.data.id, isLog: resGet.data.isLog }))
                 }
+                if (resGet.status === 400) return console.log(resGet.data);
             }
             getToken();
         } catch (e) {
 
             console.log('no session', e);
 
-        } setTimeout(() => { if (loading.current) loading.current.style.visibility = 'hidden'; }, 3000);
+        } finally {
+            if (loading.current) loading.current.style.visibility = 'hidden';
+        }
 
 
     }, [dispatch])
@@ -70,7 +73,6 @@ const Form = () => {
 
             {selector.isLog ? <main className='absolute h-screen w-screen grid place-content-center font-poppins text-lg bg-violet-400 gap-4'>
                 <div className='border-r-4 bg-violet-700 h-[300px] w-[300px] absolute rounded-full z-0'></div>
-                <div className='border-l-4 bg-violet-800 h-[200px] w-[200px] absolute rounded-full z-0 bottom-0 right-0'></div>
                 <div ref={loading} className=' h-screen w-screen absolute grid place-content-center z-30 bg-white/10 backdrop-blur-md'>
                     <div className='animate-pulse h-30 w-30 relative left-[10px]'>
                         <div className={`${styles.loadingAnimation} bg-violet-900 h-10 w-10 rounded-full z-10 -mb-7 animate-bounce `}>

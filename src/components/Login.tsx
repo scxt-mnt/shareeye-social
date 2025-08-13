@@ -30,14 +30,14 @@ const Login = () => {
         } catch (err) {
             const error = err as AxiosError
             if (error.response?.status === 401) {
-                dispatch(setUser({ isLog: true }));
+                return console.log('no user found');
             }
             if (error.response?.status === 409) {
-                console.log(error.response.data);
+                return console.log(error.response.data);
             } if (error.response?.status === 500) {
-                console.log(error.response.data);
+                return console.log(error.response.data);
             } else {
-                console.log('unknown error', error);
+                return console.log('unknown error', error);
             }
         }
     }
