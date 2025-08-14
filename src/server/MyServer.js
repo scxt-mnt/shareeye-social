@@ -102,13 +102,27 @@ app.post('/SignIn', (req, res) => {
 
 })
 
+app.post('/Form-about', (req, res) => {
+    const id = req.body.id
+    const name = req.body.name
+    const lastName = req.body.lastName
+    const bio = req.body.aboutBio
+
+    const queries = 'INSERT INTO userProfile(id, name, lastName, aboutBio) VALUES(?, ?, ?, ?)'
+    db.query(queries, [id, name, lastName, bio], (err, result) => {
+        if (err) return res.status(500).send('database error');
+         res.status(200).send('saved info');
+    })
+});
+
 app.get('/Form-about', (req, res) => {
 
     const token = req.cookies.token
-       if (!token) {
+    if (!token) {
         return res.status(400).send('no cookies found');
     }
-    if(token){
-    const decodedData = jwt.verify(token, SECRET)
-    res.status(200).send({ id: decodedData.id, isLog: true})}
+    if (token) {
+        const decodedData = jwt.verify(token, SECRET)
+        res.status(200).send({ id: decodedData.id, isLog: true })
+    }
 })
