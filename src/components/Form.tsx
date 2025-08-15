@@ -5,6 +5,7 @@ import { setUser } from "../userSlice";
 import { useEffect, useRef, useState } from "react";
 import { FormAbout } from "../publicInstance";
 import type { AxiosError } from "axios";
+import { Link } from "react-router-dom";
 const Form = () => {
     const selector = useSelector((state: RootState) => state.user.value);
     const dispatch = useDispatch();
@@ -115,7 +116,7 @@ about yourself`}</h1>
                     <section className={`border-l-[6px] transition-border duration-1000 h-[110px] w-[300px] pl-5 pt-3 z-20 relative ${bioClick ? 'border-violet-900' : 'border-white'} `}>
                         <h1 className={`pointer-events-none transition-transform  duration-1000 ml-2 z-10 absolute left-[30px] ${bioClick ? '-translate-y-[15px] transiton-text-md text-violet-100' : 'translate-y-[35px] text-sm text-gray-500'} `}>bio</h1>
                         <textarea value={aboutBio} onChange={(e) => setAboutBio(e.target.value)} onFocus={handleBioFocus} onBlur={handleBioBlur} className='w-[15rem] h-[4rem] outline-none absolute left-[30px] z-0 top-[25px] pl-2'></textarea></section></section>
-                <button onClick={aboutUserSend} className={` w-[1px] transition-all duration-1000 absolute right-0 bottom-10 font-bold text-white bg-violet-500  ${name && lastName && aboutBio ? 'pr-[5rem] pl-[2rem]' : ''}`}>Finish</button>
+                <Link to="Profile-Picture"> <button onClick={aboutUserSend} className={` w-[1px] transition-all duration-1000 absolute right-0 bottom-10 font-bold text-white bg-violet-500  ${name && lastName && aboutBio ? 'pr-[5rem] pl-[2rem]' : ''}`}>next</button> </Link>
             </main>
                 : <h1>auth error</h1>
 
