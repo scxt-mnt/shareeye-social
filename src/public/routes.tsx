@@ -14,7 +14,7 @@ const routes = () => {
             <Route path="/SignUp" element={<SignUp />} />
             <Route path="/DashBoard" element={<DashBoard />}></Route>
             <Route path="/Form-about" element={<Form />} ></Route>
-            <Route path="/Profile-Upload" element={<Profile />}/>
+            <Route path="Form-about/Profile-Upload" element={<Profile />}/>
         </Routes>
   </>
   )
