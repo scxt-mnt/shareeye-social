@@ -14,7 +14,7 @@ const Profile = () => {
         { title: "Upload Cover", values: coverImage, setValue: setCoverImage, ref: coverButton}
     ]
 
-    const handleSubmit = (e: React.ChangeEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
     }
 
