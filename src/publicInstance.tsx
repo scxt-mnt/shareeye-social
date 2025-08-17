@@ -21,8 +21,5 @@ const FormAbout = axios.create({
     withCredentials:true
 })
 
-  
-
-
 export { SignIn, FormAbout}
-export default SignUp;
+export default SignUp

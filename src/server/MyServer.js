@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import jwt from 'jsonwebtoken'
 import cookieParser from 'cookie-parser'
+import axios from 'axios'
+import { v2 as cloudinary } from 'cloudinary';
 dotenv.config();
 
 
@@ -15,12 +17,18 @@ const database = process.env.DB_DATABASE;
 const PORT = process.env.PORT_URL || 4000;
 const SECRET = process.env.SECRET_KEY;
 
+cloudinary.config({
+  cloud_name: 'doan4g4r9',
+  api_key: '926887855279478',
+  api_secret: 'eq02JzAWhqMIciIWN5WDFeGnHoo'
+});
+
 app.use(cors({
     origin: 'http://localhost:5173',
     credentials: true
 }));
-app.use(urlencoded({ extended: false }));
-app.use(express.json());
+app.use(urlencoded({ limit: "10mb", extended: false }));
+app.use(express.json({ limit: "10mb" }));
 app.use(cookieParser());
 
 const db = mysql.createPool({
@@ -93,7 +101,7 @@ app.post('/SignIn', (req, res) => {
         res.cookie('token', tokens, {
             httpOnly: true,
             secure: false,
-            sameSite: 'strict',
+            sameSite: 'lax',
             maxAge: 1000 * 60 * 60
         })
         return res.status(200).send({ msg: 'successfully log in', user: users.username, isLog: true });
@@ -111,7 +119,7 @@ app.post('/Form-about', (req, res) => {
     const queries = 'INSERT INTO userProfile(id, name, lastName, aboutBio) VALUES(?, ?, ?, ?)'
     db.query(queries, [id, name, lastName, bio], (err, result) => {
         if (err) return res.status(500).send('database error');
-         res.status(200).send('saved info');
+        res.status(200).send('saved info');
     })
 });
 
@@ -126,3 +134,25 @@ app.get('/Form-about', (req, res) => {
         res.status(200).send({ id: decodedData.id, isLog: true })
     }
 })
+
+// upload photo post 
+
+app.post('/Form-about/Profile-Upload', async (req, res) => {
+    const { image } = req.body
+
+    console.log('Base64 length:', image.length);
+
+  if (!image) return res.status(400).send('No image provided');
+
+  try {
+    const result = await cloudinary.uploader.upload(`data:image/png;base64,${image}`, {
+      folder: 'profiles', // optional folder
+    });
+
+    res.status(200).send({ url: result.secure_url });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Upload failed');
+  }
+}
+)
