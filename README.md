@@ -72,5 +72,4 @@ src/
 
 ### 1️⃣ Clone the repo
 ```bash
-git clone https://github.com/yourusername/sheereye.git
-cd sheereye
+](https://github.com/scxt-mnt/shareeye-social.git)cd sheereye
