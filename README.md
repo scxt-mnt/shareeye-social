@@ -1,51 +1,76 @@
-# 🔐 Login Project
+# 🌐 Sheereye – Social Media App
 
-a functional login form showcasing a fullstack web app
+A **fullstack social media platform** with modern authentication and scalable architecture.  
 
 ---
 
 ## 🚀 Features
 
-- Responsive login UI  
-- Username and password fields  
-- Error handling with feedback  
-- Styled with modern UI practices  
-- Extendable structure for authentication  
+- Responsive UI for login & registration  
+- User authentication with JWT + cookies  
+- Profile system with avatars & bios  
+- Post creation (text, images, videos)  
+- Like, comment & share features  
+- Real-time updates with Redux state management  
+- Error handling with user-friendly feedback  
+- Scalable backend-ready structure  
 
 ---
 
 ## 📁 Folder Structure
 
 src/
-├── assets/ # Icons/images (e.g., username & password logos)
+├── assets/ # Logos, icons, images
 ├── components/
-│ └── Login.tsx # Main login form component
+│ ├── Login.tsx # Login form
+│ ├── Register.tsx # Registration form
+│ ├── Feed.tsx # Social media feed
+│ ├── Post.tsx # Post component
+│ └── Profile.tsx # User profile
 ├── styles/
-│ └── LoginDesign.module.css # Scoped CSS 
-├── publicInstance.ts # Axios config or global variables 
+│ └── *.module.css # Scoped CSS modules
+├── redux/ # State management (auth, posts, users)
+├── utils/
+│ └── publicInstance.ts # Axios config, API utils
+└── App.tsx # Entry point
 
-yaml
-Copy
-Edit
 
 ---
 
 ## ⚙️ Technologies Used
 
-- React  
-- TypeScript
-- JavaScript
-- TailwindCSS / CSS Modules  
-- Axios
-- redux
-- jwt
-- cookie-parser
+- **Frontend**: React, TypeScript, TailwindCSS / CSS Modules  
+- **State Management**: Redux  
+- **Networking**: Axios  
+- **Authentication**: JWT, cookie-parser  
+- **Backend **: Express + Node.js  
+- **Database **: PostgreSQL / MongoDB  
+
 ---
 
-## ? How It Works
+## 🔑 Authentication Flow
 
-- `useState` manages input states  
-- On form submit, the credentials are validated  
-- Optionally, you can integrate real API logic via Axios  
-- Errors are caught and shown to the user  
+1. `useState` manages form states (login/register).  
+2. On submit → Axios sends credentials to backend.  
+3. Backend returns **JWT token** stored in cookies.  
+4. Protected routes use Redux + Axios interceptors for auth.  
+5. Errors (e.g., invalid password) are caught and shown.  
 
+---
+
+## 🛠️ Planned Features
+
+- Friends system (follow/unfollow)  
+- Private messaging  
+- Notifications system  
+- Cloud media upload (e.g., Cloudinary)  
+- Dark mode support  
+
+---
+
+## ▶️ Getting Started
+
+### 1️⃣ Clone the repo
+```bash
+git clone https://github.com/yourusername/sheereye.git
+cd sheereye
