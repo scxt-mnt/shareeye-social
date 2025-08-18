@@ -140,7 +140,6 @@ app.get('/Form-about', (req, res) => {
 app.post('/Form-about/Profile-Upload', async (req, res) => {
     const { image } = req.body
 
-    console.log('Base64 length:', image.length);
 
   if (!image) return res.status(400).send('No image provided');
 

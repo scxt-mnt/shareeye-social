@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { FormAbout } from "../publicInstance";
 import type { AxiosError } from "axios";
 import { Link } from "react-router-dom";
+import LoadingAnimation from "./LoadingAnimation";
 const Form = () => {
     const selector = useSelector((state: RootState) => state.user.value);
     const dispatch = useDispatch();
@@ -17,6 +18,8 @@ const Form = () => {
     const [lastName, setLastName] = useState<string>("");
     const [aboutBio, setAboutBio] = useState<string>("");
     const loading = useRef<HTMLDivElement>(null);
+
+    if(loading.current)  loading.current.style.visibility = 'hidden' 
 
 
 
@@ -90,17 +93,8 @@ const Form = () => {
 
             {selector.isLog ? <main className='absolute h-screen w-screen grid place-content-center font-poppins text-lg bg-violet-400 gap-4'>
                 <div className='border-r-4 bg-violet-700 h-[300px] w-[300px] absolute rounded-full z-0'></div>
-                <div ref={loading} className=' h-screen w-screen absolute grid place-content-center z-30 bg-white/10 backdrop-blur-md'>
-                    <div className='animate-pulse h-30 w-30 relative left-[10px]'>
-
-                        <div className={`bg-violet-900 h-10 w-10 rounded-full z-10 -mb-7 animate-bounce `}>
-                            <div className='absolute bg-white h-[10px] w-[10px] rounded-full right-0'> <div className='absolute right-[1px] top-[2px] bg-black h-[5px] w-[5px] rounded-full'></div></div>
-                            <div className='h-[10px] w-[2px] bg-violet-900'></div>
-                            <div className={`bg-violet-900 h-[20px] w-[30px] animate-spin absolute top-[25px]`}></div></div>
-                    </div>
-                    <div className='h-[10px] w-[50px] bg-violet-900 relative left-[3px] top-[40px]'></div>
-                </div>
-                <h1 className='text-2xl 
+                <LoadingAnimation ref={loading} />
+                    <h1 className='text-2xl 
                     font-bolds  top-10 font-bold text-white whitespace-pre border-b-4 border-violet-300 z-20 w-20'>{`Please tell us 
 about yourself`}</h1>
                 <section className='border-t-4 border-white  z-20 h-[380px] relative flex flex-col justify-center gap-5 pr-[7px] pl-[10px]  '>
