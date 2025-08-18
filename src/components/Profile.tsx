@@ -34,7 +34,7 @@ const Profile = () => {
                 reader.readAsDataURL(file)
                 reader.onloadend = () => {
                     if (reader.result) {
-                        resolve((reader.result as string).split(',')[1])
+                        resolve((reader.result as string))
                     }
                 }
             } else {

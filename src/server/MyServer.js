@@ -23,7 +23,7 @@ const cloudinarySecret = process.env.CLOUDINARY_SECRET
 cloudinary.config({
   cloud_name: cloudinaryName,
   api_key: cloudinaryKey,
-  api_secret: cloudinarySecret
+  api_secret: cloudinarySecret  
 });
 
 app.use(cors({
@@ -147,7 +147,7 @@ app.post('/Form-about/Profile-Upload', async (req, res) => {
   if (!image) return res.status(400).send('No image provided');
 
   try {
-    const result = await cloudinary.uploader.upload(`data:image/png;base64,${image}`,(error, result) => {
+    const result = await cloudinary.uploader.upload(image,(error, result) => {
          res.status(200).send({ url: result.secure_url });
     });
     if(result.status === 401) res.status(401).send('request failed');
