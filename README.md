@@ -43,8 +43,8 @@ src/
 - **State Management**: Redux  
 - **Networking**: Axios  
 - **Authentication**: JWT, cookie-parser  
-- **Backend (planned)**: Express + Node.js  
-- **Database (planned)**: PostgreSQL / MongoDB  
+- **Backend **: Express + Node.js  
+- **Database **: PostgreSQL / MongoDB  
 
 ---
 
