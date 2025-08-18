@@ -19,7 +19,6 @@ const Form = () => {
     const [aboutBio, setAboutBio] = useState<string>("");
     const loading = useRef<HTMLDivElement>(null);
 
-    if(loading.current)  loading.current.style.visibility = 'hidden' 
 
 
 
