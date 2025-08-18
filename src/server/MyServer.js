@@ -16,11 +16,14 @@ const pass = process.env.DB_PASS;
 const database = process.env.DB_DATABASE;
 const PORT = process.env.PORT_URL || 4000;
 const SECRET = process.env.SECRET_KEY;
+const cloudinaryName = process.env.CLOUDINARY_NAME
+const cloudinaryKey  = process.env.CLOUDINARY_KEY
+const cloudinarySecret = process.env.CLOUDINARY_SECRET
 
 cloudinary.config({
-  cloud_name: 'doan4g4r9',
-  api_key: '926887855279478',
-  api_secret: 'eq02JzAWhqMIciIWN5WDFeGnHoo'
+  cloud_name: cloudinaryName,
+  api_key: cloudinaryKey,
+  api_secret: cloudinarySecret
 });
 
 app.use(cors({
@@ -38,7 +41,7 @@ const db = mysql.createPool({
     database: database
 })
 
-app.listen(PORT, () => {
+app.listen(PORT,() => {
     console.log(`listening to port ${PORT}`);
 });
 
@@ -144,11 +147,11 @@ app.post('/Form-about/Profile-Upload', async (req, res) => {
   if (!image) return res.status(400).send('No image provided');
 
   try {
-    const result = await cloudinary.uploader.upload(`data:image/png;base64,${image}`, {
-      folder: 'profiles', // optional folder
+    const result = await cloudinary.uploader.upload(`data:image/png;base64,${image}`,(error, result) => {
+         res.status(200).send({ url: result.secure_url });
     });
+    if(result.status === 401) res.status(401).send('request failed');
 
-    res.status(200).send({ url: result.secure_url });
   } catch (err) {
     console.error(err);
     res.status(500).send('Upload failed');
