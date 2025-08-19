@@ -17,13 +17,13 @@ const database = process.env.DB_DATABASE;
 const PORT = process.env.PORT_URL || 4000;
 const SECRET = process.env.SECRET_KEY;
 const cloudinaryName = process.env.CLOUDINARY_NAME
-const cloudinaryKey  = process.env.CLOUDINARY_KEY
+const cloudinaryKey = process.env.CLOUDINARY_KEY
 const cloudinarySecret = process.env.CLOUDINARY_SECRET
 
 cloudinary.config({
-  cloud_name: cloudinaryName,
-  api_key: cloudinaryKey,
-  api_secret: cloudinarySecret  
+    cloud_name: cloudinaryName,
+    api_key: cloudinaryKey,
+    api_secret: cloudinarySecret
 });
 
 app.use(cors({
@@ -41,7 +41,7 @@ const db = mysql.createPool({
     database: database
 })
 
-app.listen(PORT,() => {
+app.listen(PORT, () => {
     console.log(`listening to port ${PORT}`);
 });
 
@@ -119,8 +119,8 @@ app.post('/Form-about', (req, res) => {
     const lastName = req.body.lastName
     const bio = req.body.aboutBio
 
-    const queries = 'INSERT INTO userProfile(id, name, lastName, aboutBio) VALUES(?, ?, ?, ?)'
-    db.query(queries, [id, name, lastName, bio], (err, result) => {
+    const queries = 'INSERT INTO userprofile(id, name, lastName, bio, profile, cover) VALUES(?, ?, ?, ?, ?, ?)'
+    db.query(queries, [id, name, lastName, bio, null, null], (err, result) => {
         if (err) return res.status(500).send('database error');
         res.status(200).send('saved info');
     })
@@ -144,17 +144,27 @@ app.post('/Form-about/Profile-Upload', async (req, res) => {
     const { image } = req.body
 
 
-  if (!image) return res.status(400).send('No image provided');
+    if (!image) return res.status(400).send('No image provided');
 
-  try {
-    const result = await cloudinary.uploader.upload(image,(error, result) => {
-         res.status(200).send({ url: result.secure_url });
-    });
-    if(result.status === 401) res.status(401).send('request failed');
+    try {
+        const result = await cloudinary.uploader.upload(image, (error, result) => {
+            res.status(200).send({ url: result.secure_url });
+        });
+        if (result.status === 401) res.status(401).send('request failed');
 
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Upload failed');
-  }
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Upload failed');
+    }
 }
 )
+
+// url post
+
+app.post('/Form-about/Profile-Upload', (req , res) => {
+    const {profileUrl, coverUrl} = req.body
+
+    const query = 'UPDATE FROM userprofile SET profile = ?, cover = ? WHERE id = ?'
+
+    db.query(query, [profileUrl, coverUrl])
+})

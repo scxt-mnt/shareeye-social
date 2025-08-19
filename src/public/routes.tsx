@@ -5,6 +5,7 @@ import LandingPage from '../components/LandingPage'
 import DashBoard  from '../components/DashBoard'
 import Form from '../components/Form'
 import Profile from '../components/Profile'
+import ProfilePage from '../components/ProfilePage'
 const routes = () => {
   return (
   <>
@@ -15,6 +16,7 @@ const routes = () => {
             <Route path="/DashBoard" element={<DashBoard />}></Route>
             <Route path="/Form-about" element={<Form />} ></Route>
             <Route path="Form-about/Profile-Upload" element={<Profile />}/>
+            <Route path="Profile-page" element={ <ProfilePage /> }></Route>
         </Routes>
   </>
   )

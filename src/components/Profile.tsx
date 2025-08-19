@@ -11,6 +11,9 @@ const Profile = () => {
     const profileButton = useRef<HTMLInputElement | null>(null);
     const coverButton = useRef<HTMLInputElement | null>(null);
     const loading = useRef<HTMLDivElement | null>(null);
+    const [profileUrl, setProfileUrl] = useState<string>("");
+    const [coverUrl, setCoverUrl] = useState<string>("");
+
     useEffect(() => {
         if (loading.current)
             loading.current.style.visibility = 'hidden'
@@ -53,11 +56,12 @@ const Profile = () => {
                 const res = await storePhoto.post('/', { image: profilePic })
 
                 if (res.status === 401) {
-                    console.log('didnt upload')
+                    console.log('didnt upload');
                 }
 
                 if (res.status === 200) {
-                    console.log('image uploaded')
+                    console.log('image uploaded');
+                    setProfileUrl(res.data.url);
                 }
             }
 
@@ -65,11 +69,12 @@ const Profile = () => {
                 const coverBase64 = await DataToBase64(cover);
                 const res = await storePhoto.post('/', { image: coverBase64 })
                 if (res.status === 401) {
-                    console.log('didnt upload')
+                    console.log('didnt upload');
                 }
 
                 if (res.status === 200) {
-                    console.log('image uploaded')
+                    console.log('image uploaded');
+                    setCoverUrl(res.data.url);
                 }
             }
             if (loading.current) loading.current.style.visibility = 'hidden'
@@ -78,6 +83,26 @@ const Profile = () => {
             console.log(err);
         }
     }
+    useEffect(() => {
+        const sendUrl = async () =>{
+        try {
+            if (profileUrl && coverUrl) {
+                const res = await storePhoto.post('/', { profile: profileUrl, cover: coverUrl })
+
+                if (res.status === 401) {
+                    return console.log('failed to send url on db')
+                }
+
+                if (res.status === 200) {
+                    console.log('succesfully sents the url on backend');
+                }
+            }
+        } catch (err) {
+            console.log(err)
+        }}
+
+        sendUrl();
+    }, [profileUrl, coverUrl])
 
 
 
