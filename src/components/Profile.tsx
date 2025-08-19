@@ -1,9 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import { storePhoto } from "../uploads";
 import LoadingAnimation from "./LoadingAnimation";
-
-
-
+import { useSelector } from "react-redux";
+import type { RootState } from "../Store";
+import { uploadsUrl } from "../uploads";
+import { useDispatch } from "react-redux";
+import { setUser } from '../userSlice'
+import { FormAbout } from "../publicInstance";
 const Profile = () => {
 
     const [profileImage, setProfileImage] = useState<File | null>(null);
@@ -13,6 +16,31 @@ const Profile = () => {
     const loading = useRef<HTMLDivElement | null>(null);
     const [profileUrl, setProfileUrl] = useState<string>("");
     const [coverUrl, setCoverUrl] = useState<string>("");
+    const selector = useSelector(((state: RootState) => state.user.value));
+    const dispatch = useDispatch();
+
+        useEffect(() => {
+
+        if (loading.current) loading.current.style.visibility = 'visible';
+        const getToken = async () => {
+            try {
+                const resGet = await FormAbout.get('/');
+                if (resGet.status === 200) {
+                    dispatch(setUser({ id: resGet.data.id, isLog: resGet.data.isLog}))
+                }
+                if (resGet.status === 400) return console.log(resGet.data);
+
+
+            } catch (e) {
+                console.log('no session', e);
+            } finally {
+                if (loading.current) loading.current.style.visibility = 'hidden';
+            }
+        }
+        getToken();
+
+    }, [dispatch])
+
 
     useEffect(() => {
         if (loading.current)
@@ -54,7 +82,7 @@ const Profile = () => {
             if (profile) {
                 const profilePic = await DataToBase64(profile);
                 const res = await storePhoto.post('/', { image: profilePic })
-
+                
                 if (res.status === 401) {
                     console.log('didnt upload');
                 }
@@ -78,16 +106,15 @@ const Profile = () => {
                 }
             }
             if (loading.current) loading.current.style.visibility = 'hidden'
-
         } catch (err) {
             console.log(err);
         }
     }
+
     useEffect(() => {
-        const sendUrl = async () =>{
-        try {
-            if (profileUrl && coverUrl) {
-                const res = await storePhoto.post('/', { profile: profileUrl, cover: coverUrl })
+        const sendUrl = async () => {
+            if (profileUrl) {
+                const res = await uploadsUrl.put('/', { profile: profileUrl, cover: coverUrl, id: selector.id })
 
                 if (res.status === 401) {
                     return console.log('failed to send url on db')
@@ -97,12 +124,49 @@ const Profile = () => {
                     console.log('succesfully sents the url on backend');
                 }
             }
-        } catch (err) {
-            console.log(err)
-        }}
-
+        }
         sendUrl();
-    }, [profileUrl, coverUrl])
+
+    }, [profileUrl, coverUrl, selector.id])
+
+    useEffect(() => {
+        const sendUrl = async () => {
+            console.log(selector.id)
+            if (profileUrl) {
+                const res = await uploadsUrl.put('/', { profile: profileUrl,  id: selector.id })
+
+                if (res.status === 401) {
+                    return console.log('failed to send url on db')
+                }
+
+                if (res.status === 200) {
+                    console.log('succesfully sents the url on backend');
+                }
+            }
+        }
+        sendUrl();
+
+    }, [profileUrl, selector.id])
+
+useEffect(() => {
+        const sendUrl = async () => {
+            if (coverUrl) {
+                const res = await uploadsUrl.put('/', { cover: coverUrl, id: selector.id })
+
+                if (res.status === 401) {
+                    return console.log('failed to send url on db')
+                }
+
+                if (res.status === 200) {
+                    console.log('succesfully sents the url on backend');
+                }
+            }
+        }
+        sendUrl();
+
+    }, [coverUrl, selector.id])
+
+
 
 
 

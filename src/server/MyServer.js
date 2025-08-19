@@ -147,11 +147,10 @@ app.post('/Form-about/Profile-Upload', async (req, res) => {
     if (!image) return res.status(400).send('No image provided');
 
     try {
-        const result = await cloudinary.uploader.upload(image, (error, result) => {
-            res.status(200).send({ url: result.secure_url });
-        });
+        const result = await cloudinary.uploader.upload(image);
+        
         if (result.status === 401) res.status(401).send('request failed');
-
+        res.status(200).send({ url: result.secure_url });
     } catch (err) {
         console.error(err);
         res.status(500).send('Upload failed');
@@ -159,12 +158,20 @@ app.post('/Form-about/Profile-Upload', async (req, res) => {
 }
 )
 
-// url post
+// url update
 
-app.post('/Form-about/Profile-Upload', (req , res) => {
-    const {profileUrl, coverUrl} = req.body
+app.put('/Form-about/Profile-Upload/Url', (req , res) => {
+    const {profile, cover, id} = req.body
 
-    const query = 'UPDATE FROM userprofile SET profile = ?, cover = ? WHERE id = ?'
+    const query = 'UPDATE userprofile SET profile = ?, cover = ? WHERE id = ?'
 
-    db.query(query, [profileUrl, coverUrl])
+    db.query(query, [profile, cover, id], (err, result) => {
+        if(err) return res.send(err)
+
+        if(result.affectedRows === 0){
+           return res.status(401).send(id)
+        }
+
+        res.status(200).send('successflly sent url'); 
+    })
 })
