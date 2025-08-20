@@ -148,7 +148,7 @@ app.post('/Form-about/Profile-Upload', async (req, res) => {
 
     try {
         const result = await cloudinary.uploader.upload(image);
-        
+
         if (result.status === 401) res.status(401).send('request failed');
         res.status(200).send({ url: result.secure_url });
     } catch (err) {
@@ -160,25 +160,49 @@ app.post('/Form-about/Profile-Upload', async (req, res) => {
 
 // url update
 
-app.put('/Form-about/Profile-Upload/Url', (req , res) => {
-    const {profile, cover, id} = req.body
+app.put('/Form-about/Profile-Upload/Url', (req, res) => {
+    const { profile, cover, id } = req.body
 
     const query = 'UPDATE userprofile SET profile = ?, cover = ? WHERE id = ?'
 
     db.query(query, [profile, cover, id], (err, result) => {
-        if(err) return res.send(err)
+        if (err) return res.send(err)
 
-        if(result.affectedRows === 0){
-           return res.status(401).send(id)
+        if (result.affectedRows === 0) {
+            return res.status(401).send(id)
         }
 
-        res.status(200).send('successflly sent url'); 
+        res.status(200).send('successflly sent url');
     })
 })
 
 // get profile details
 
 app.post('/Profile-page', (req, res) => {
-    const {id} = req.body;
+    const id = req.body.id;
+
+    try {
+        const queries = 'SELECT * FROM userprofile WHERE id = ?'
+        db.query(queries, [id], (err, result) => {
+            if (result.length == 0) {
+                return res.status(401).send('no user found');
+            }
+
+            if (result) {
+                const data = result[0]
+                res.status(200)
+                    .send({
+                        msg: 'profile data collected',
+                        name: data.name,
+                        lastName: data.lastName,
+                        bio: data.bio,
+                        profile: data.profile,
+                        cover: data.cover
+                    })
+            }
+        });
+
+
+    } catch (err) { console.log(err) }
 
 })
