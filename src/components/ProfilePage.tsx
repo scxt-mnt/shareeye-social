@@ -41,7 +41,7 @@ const ProfilePage = () => {
                             profileUrl: res.data.profile,
                             coverUrl: res.data.cover
                         }))
-                    console.log();
+                        console.log();
 
                     }
                 } catch (err) {
@@ -58,10 +58,11 @@ const ProfilePage = () => {
             {selector.isLog ? <>
 
                 <main className='h-screen w-screen font-poppins '>
-                    <img className='h-[12rem] w-screen rounded-b-[5rem]' src={detailsSelector.profileUrl}></img>
+                    {detailsSelector.coverUrl ? <img className='h-[12rem] w-screen rounded-b-[5rem]' src={detailsSelector.coverUrl}></img> : <div className='h-[12rem] w-screen rounded-b-[5rem] bg-white shadow-md'></div>}
                     <figure className='w-screen flex flex-col gap-[5rem] '>
-                        <img className=' self-center 
-                    h-[7rem] w-[7rem] -m-[4rem] border-[3px] border-black rounded-full' src={`${detailsSelector.coverUrl}`}></img>
+                    {detailsSelector.profileUrl ? <img className=' self-center 
+                    h-[7rem] w-[7rem] -m-[4rem] border-[3px] border-violet-500 rounded-full' src={` ${detailsSelector.profileUrl}`}></img> : <div className=' self-center 
+                    h-[7rem] w-[7rem] -m-[4rem] border-[3px] border-violet-500 rounded-full bg-white'></div>}    
                         <figcaption className='self-center text-2xl font-bold'>{`${detailsSelector.name} ${detailsSelector.lastName}`}</figcaption>
                         <figcaption className='self-center -m-[4rem] text-sm'>{detailsSelector.bio}</figcaption>
                     </figure>
