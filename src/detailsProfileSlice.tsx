@@ -4,7 +4,7 @@ interface dataValue{
     value: {
         name: string,
         lastName: string,
-        cover: '',
+        bio: '',
         profileUrl: string,
         coverUrl: string
     }
@@ -14,7 +14,7 @@ const initialValue: dataValue = {
     value: {
     name: '',
     lastName: '',
-    cover: '',
+    bio: '',
     profileUrl: '',
     coverUrl: ''}
 }
@@ -24,7 +24,7 @@ const Slice = createSlice({
     initialState: initialValue,
     reducers: {
         setDetails(state, action){
-            state.value.name = action.payload.name
+            state.value = action.payload
         }
     }
 })

@@ -1,5 +1,3 @@
-import image from '../assets/purple.jpg'
-import image2 from '../assets/username.png'
 import { useEffect } from 'react'
 import { FormAbout } from '../publicInstance'
 import { AxiosError } from 'axios'
@@ -40,10 +38,11 @@ const ProfilePage = () => {
                             name: res.data.name,
                             lastName: res.data.lastName,
                             bio: res.data.bio,
-                            profile: res.data.profile,
-                            cover: res.data.cover
+                            profileUrl: res.data.profile,
+                            coverUrl: res.data.cover
                         }))
-                        console.log(res.data.name)
+                    console.log();
+
                     }
                 } catch (err) {
                     const error = err as AxiosError
@@ -59,12 +58,12 @@ const ProfilePage = () => {
             {selector.isLog ? <>
 
                 <main className='h-screen w-screen font-poppins '>
-                    <img className='h-[12rem] w-screen rounded-b-[5rem]' src={image}></img>
+                    <img className='h-[12rem] w-screen rounded-b-[5rem]' src={detailsSelector.profileUrl}></img>
                     <figure className='w-screen flex flex-col gap-[5rem] '>
                         <img className=' self-center 
-                    h-[7rem] w-[7rem] -m-[4rem] border-[3px] border-black rounded-full' src={image2}></img>
-                        <figcaption className='self-center text-2xl font-bold'>{detailsSelector.name}</figcaption>
-                        <figcaption className='self-center -m-[4rem] text-sm'>Hello im scott boragay!</figcaption>
+                    h-[7rem] w-[7rem] -m-[4rem] border-[3px] border-black rounded-full' src={`${detailsSelector.coverUrl}`}></img>
+                        <figcaption className='self-center text-2xl font-bold'>{`${detailsSelector.name} ${detailsSelector.lastName}`}</figcaption>
+                        <figcaption className='self-center -m-[4rem] text-sm'>{detailsSelector.bio}</figcaption>
                     </figure>
                 </main>
 
