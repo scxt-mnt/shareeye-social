@@ -131,7 +131,6 @@ const Profile = () => {
 
     useEffect(() => {
         const sendUrl = async () => {
-            console.log(selector.id)
             if (profileUrl) {
                 const res = await uploadsUrl.put('/', { profile: profileUrl,  id: selector.id })
 

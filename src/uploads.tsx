@@ -10,6 +10,10 @@ const uploadsUrl = axios.create({
     headers: { 'Content-Type': 'application/json' }
 })
 
+const getDetails = axios.create({
+    baseURL: 'http://localhost:5000/Profile-page',
+    headers: {Accept: 'application/json'}
+})
 
 
-export { storePhoto, uploadsUrl }
+export { storePhoto, uploadsUrl, getDetails }

@@ -175,3 +175,10 @@ app.put('/Form-about/Profile-Upload/Url', (req , res) => {
         res.status(200).send('successflly sent url'); 
     })
 })
+
+// get profile details
+
+app.post('/Profile-page', (req, res) => {
+    const {id} = req.body;
+
+})
