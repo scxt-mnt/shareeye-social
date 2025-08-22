@@ -119,7 +119,7 @@ app.post('/Form-about', (req, res) => {
     const lastName = req.body.lastName
     const bio = req.body.aboutBio
 
-    const queries = 'INSERT INTO userprofile(id, name, lastName, bio, profile, cover) VALUES(?, ?, ?, ?, ?, ?)'
+    const queries = 'INSERT INTO userprofile(id, name, lastName, bio, profileImage, cover) VALUES(?, ?, ?, ?, ?, ?)'
     db.query(queries, [id, name, lastName, bio, null, null], (err, result) => {
         if (err) return res.status(500).send('database error');
         res.status(200).send('saved info');
@@ -162,19 +162,20 @@ app.post('/Form-about/Profile-Upload', async (req, res) => {
 
 app.put('/Form-about/Profile-Upload/Url', (req, res) => {
     const { profile, cover, id } = req.body
-
-    const query = 'UPDATE userprofile SET profile = ?, cover = ? WHERE id = ?'
+    const query = 'UPDATE userprofile SET profileImage = ?, cover = ? WHERE id = ?'
 
     db.query(query, [profile, cover, id], (err, result) => {
         if (err) return res.send(err)
-
+            
         if (result.affectedRows === 0) {
             return res.status(401).send(id)
         }
 
-        res.status(200).send('successflly sent url');
+        res.status(200).send("successfully store profile");
     })
 })
+
+
 
 // get profile details
 
@@ -196,7 +197,7 @@ app.post('/Profile-page', (req, res) => {
                         name: data.name,
                         lastName: data.lastName,
                         bio: data.bio,
-                        profile: data.profile,
+                        profile: data.profileImage,
                         cover: data.cover
                     })
             }

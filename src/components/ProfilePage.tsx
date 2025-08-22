@@ -51,7 +51,7 @@ const ProfilePage = () => {
             }
             getFullDetails();
         }
-    }, [selector.id])
+    }, [selector.id, dispatch])
 
     return (
         <>

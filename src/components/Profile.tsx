@@ -19,14 +19,14 @@ const Profile = () => {
     const selector = useSelector(((state: RootState) => state.user.value));
     const dispatch = useDispatch();
 
-        useEffect(() => {
+    useEffect(() => {
 
         if (loading.current) loading.current.style.visibility = 'visible';
         const getToken = async () => {
             try {
                 const resGet = await FormAbout.get('/');
                 if (resGet.status === 200) {
-                    dispatch(setUser({ id: resGet.data.id, isLog: resGet.data.isLog}))
+                    dispatch(setUser({ id: resGet.data.id, isLog: resGet.data.isLog }))
                 }
                 if (resGet.status === 400) return console.log(resGet.data);
 
@@ -82,7 +82,7 @@ const Profile = () => {
             if (profile) {
                 const profilePic = await DataToBase64(profile);
                 const res = await storePhoto.post('/', { image: profilePic })
-                
+
                 if (res.status === 401) {
                     console.log('didnt upload');
                 }
@@ -118,52 +118,17 @@ const Profile = () => {
 
                 if (res.status === 401) {
                     return console.log('failed to send url on db')
-                }
 
-                if (res.status === 200) {
-                    console.log('succesfully sents the url on backend');
+                    
+                }
+                if(res.status === 200){
+                    console.log(res.data);
                 }
             }
         }
         sendUrl();
 
     }, [profileUrl, coverUrl, selector.id])
-
-    useEffect(() => {
-        const sendUrl = async () => {
-            if (profileUrl) {
-                const res = await uploadsUrl.put('/', { profile: profileUrl,  id: selector.id })
-
-                if (res.status === 401) {
-                    return console.log('failed to send url on db')
-                }
-
-                if (res.status === 200) {
-                    console.log('succesfully sents the url on backend');
-                }
-            }
-        }
-        sendUrl();
-
-    }, [profileUrl, selector.id])
-
-useEffect(() => {
-        const sendUrl = async () => {
-            if (coverUrl) {
-                const res = await uploadsUrl.put('/', { cover: coverUrl, id: selector.id })
-
-                if (res.status === 401) {
-                    return console.log('failed to send url on db')
-                }
-
-                if (res.status === 200) {
-                    console.log('succesfully sents the url on backend');
-                }
-            }
-        }
-        sendUrl();
-
-    }, [coverUrl, selector.id])
 
 
 

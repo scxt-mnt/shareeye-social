@@ -21,10 +21,6 @@ const FormAbout = axios.create({
     withCredentials:true
 })
 
-const getDetails = axios.create({
-    baseURL: 'http://localhost:5000/Profile-page',
-    headers: {Accept: 'application/json'}
-})
 
 export { SignIn, FormAbout}
 export default SignUp
