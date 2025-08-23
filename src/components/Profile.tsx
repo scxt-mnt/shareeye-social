@@ -18,6 +18,9 @@ const Profile = () => {
     const [coverUrl, setCoverUrl] = useState<string>("");
     const selector = useSelector(((state: RootState) => state.user.value));
     const dispatch = useDispatch();
+    const uploadRef = useRef<HTMLDivElement | null>(null);
+    const [uploadFinish, setUploadFinished] = useState<boolean>(false);
+
 
     useEffect(() => {
 
@@ -35,6 +38,7 @@ const Profile = () => {
                 console.log('no session', e);
             } finally {
                 if (loading.current) loading.current.style.visibility = 'hidden';
+
             }
         }
         getToken();
@@ -45,6 +49,8 @@ const Profile = () => {
     useEffect(() => {
         if (loading.current)
             loading.current.style.visibility = 'hidden'
+        if (uploadRef.current) uploadRef.current.style.visibility = 'hidden'
+
     }, [loading])
 
 
@@ -90,6 +96,8 @@ const Profile = () => {
                 if (res.status === 200) {
                     console.log('image uploaded');
                     setProfileUrl(res.data.url);
+                    if (uploadRef.current)
+                        uploadRef.current.style.visibility = 'visible';
                 }
             }
 
@@ -99,13 +107,24 @@ const Profile = () => {
                 if (res.status === 401) {
                     console.log('didnt upload');
                 }
-
                 if (res.status === 200) {
                     console.log('image uploaded');
                     setCoverUrl(res.data.url);
+                    if (res.data.url) {
+                        if (uploadRef.current) uploadRef.current.style.visibility = "visible"
+                        setUploadFinished(true)
+                    }
+                    setTimeout(() => {
+                        setUploadFinished(false)
+                    }, 2000)
                 }
             }
             if (loading.current) loading.current.style.visibility = 'hidden'
+
+
+
+
+
         } catch (err) {
             console.log(err);
         }
@@ -113,17 +132,17 @@ const Profile = () => {
 
     useEffect(() => {
         const sendUrl = async () => {
+
             if (profileUrl) {
                 const res = await uploadsUrl.put('/', { profile: profileUrl, cover: coverUrl, id: selector.id })
 
                 if (res.status === 401) {
                     return console.log('failed to send url on db')
-
-                    
                 }
-                if(res.status === 200){
+                if (res.status === 200) {
                     console.log(res.data);
                 }
+
             }
         }
         sendUrl();
@@ -139,8 +158,11 @@ const Profile = () => {
 
 
             <main className='h-screen w-screen grid place-items-center font-poppins font-bold '>
+                <div ref={uploadRef} className={` self-start h-[2rem] w-[8rem] bg-violet-900 absolute flex justify-center rounded-full items-center text-white transition-transform duration-1000 z-50 ${uploadFinish ? "translate-y-2" : "-translate-y-full"}`}><h3>Uploaded</h3></div>
+
                 <h1 className='text-2xl text-black -mt-[100px] text-violet-800'>Upload Pictures</h1>
                 <LoadingAnimation ref={loading} />
+
                 {buttons.map((field, index) => {
                     return (
                         <form onSubmit={handleSubmit} key={index} className='flex flex-col gap-10 -mt-[12rem] relative'>
