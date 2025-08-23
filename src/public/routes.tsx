@@ -2,10 +2,10 @@ import { Routes, Route } from 'react-router-dom'
 import SignUp from '../components/SignUp'
 import Login  from '../components/Login'
 import LandingPage from '../components/LandingPage'
-import DashBoard  from '../components/DashBoard'
+import DashBoard  from '../DashBoard Files/DashBoard'
 import Form from '../components/Form'
-import Profile from '../components/Profile'
-import ProfilePage from '../components/ProfilePage'
+import Profile from '../Profiles/Profile'
+import ProfilePage from '../Profiles/ProfilePage'
 const routes = () => {
   return (
   <>

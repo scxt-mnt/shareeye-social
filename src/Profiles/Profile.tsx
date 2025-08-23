@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { storePhoto } from "../uploads";
-import LoadingAnimation from "./LoadingAnimation";
+import LoadingAnimation from "../components/LoadingAnimation";
 import { useSelector } from "react-redux";
 import type { RootState } from "../Store";
 import { uploadsUrl } from "../uploads";

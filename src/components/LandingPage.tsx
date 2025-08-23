@@ -1,4 +1,4 @@
-import NavBar from './Nav'
+import NavBar from '../navigation bar/Nav'
 import greetImage from '../assets/greet.png';
 import background from '../assets/purple.jpg'
 
