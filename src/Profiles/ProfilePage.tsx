@@ -64,7 +64,7 @@ const ProfilePage = () => {
                     h-[7rem] w-[7rem] -m-[4rem] border-[3px] border-violet-500 rounded-full' src={` ${detailsSelector.profileUrl}`}></img> : <div className=' self-center 
                     h-[7rem] w-[7rem] -m-[4rem] border-[3px] border-violet-500 rounded-full bg-white'></div>}    
                         <figcaption className='self-center text-2xl font-bold'>{`${detailsSelector.name} ${detailsSelector.lastName}`}</figcaption>
-                        <figcaption className='self-center -m-[4rem] text-sm w-[20rem] h-auto'>{detailsSelector.bio}</figcaption>
+                        <figcaption className='self-center -m-[4rem] text-sm ml-[4rem] mr-[3rem] h-auto'>{detailsSelector.bio}</figcaption>
                     </figure>
                 </main>
 
