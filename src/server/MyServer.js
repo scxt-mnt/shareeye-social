@@ -63,14 +63,13 @@ app.post('/SignUp', (req, res) => {
             return console.log('user not created');
         }
 
-        const token = jwt.sign({ id: result.insertId }, SECRET, { expiresIn: '1hr' });
+        const token = jwt.sign({ id: result.insertId }, SECRET, { expiresIn: '1h' });
 
         res.cookie('token', token, {
             httpOnly: true,
             secure: false,
             sameSite: 'lax',
             maxAge: 1000 * 60 * 60,
-            path: '/'
         })
 
         res.status(201).send(`successfully created user`);
@@ -97,7 +96,7 @@ app.post('/SignIn', (req, res) => {
         const users = result[0]
 
 
-        const tokens = jwt.sign({ id: users.id, user: users.username }, SECRET, { expiresIn: '1hr' })
+        const tokens = jwt.sign({ id: users.id }, SECRET, { expiresIn: '1h' })
 
 
 
@@ -107,7 +106,7 @@ app.post('/SignIn', (req, res) => {
             sameSite: 'lax',
             maxAge: 1000 * 60 * 60
         })
-        return res.status(200).send({ msg: 'successfully log in', user: users.username, isLog: true });
+        return res.status(200).send({ msg: 'successfully log in', isLog: true });
 
     })
 
