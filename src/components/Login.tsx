@@ -22,7 +22,7 @@ const Login = () => {
         try {
             const res = await SignIn.post('/', { username: username, password: password });
             if (res.status === 200) {
-                dispatch(setUser({ id: res.data.id, user: res.data.user, isLog: res.data.isLog }));
+                dispatch(setUser({ id: res.data.id, isLog: res.data.isLog }));
                 console.log(res.data.msg);
                 navigateTo(res.data.isLog ? "/DashBoard" : "/Login");
             }
