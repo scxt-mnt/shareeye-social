@@ -3,9 +3,9 @@ import { useSelector } from "react-redux"
 import DashBoardNav from "./DashBoardNav";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { FormAbout } from "../publicInstance";
+import { FormAbout } from "../axios instances/publicInstance";
 import { setUser } from "../userSlice";
-import { getDetails } from "../uploads";
+import { getDetails } from "../axios instances/uploads";
 import { setDetails } from "../detailsProfileSlice";
 import { Link } from "react-router-dom";
 const DashBoard = () => {

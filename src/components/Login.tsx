@@ -5,7 +5,7 @@ import usernameLogo from '../assets/username.png'
 import closedPassword from '../assets/closedPassword.png';
 import passwordLogo from '../assets/password.png'
 import { Link, useNavigate } from 'react-router-dom';
-import { SignIn } from '../publicInstance';
+import { SignIn } from '../axios instances/publicInstance';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../userSlice'
 
