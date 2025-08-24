@@ -130,7 +130,7 @@ app.get('/Form-about', (req, res) => {
 
     const token = req.cookies.token
     if (!token) {
-        return res.status(400).send('no cookies found');
+        return res.status(400).send({msg: 'no cookies found'});
     }
     if (token) {
         const decodedData = jwt.verify(token, SECRET)
