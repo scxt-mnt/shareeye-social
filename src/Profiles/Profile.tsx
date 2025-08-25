@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../Store";
 import { uploadsUrl } from "../axios instances/uploads";
 import { useDispatch } from "react-redux";
-import { setUser } from '../userSlice'
+import { setUser } from '../Redux Slice/userSlice'
 import { FormAbout } from "../axios instances/publicInstance";
 const Profile = () => {
 

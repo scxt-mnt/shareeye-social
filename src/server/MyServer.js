@@ -129,7 +129,7 @@ app.get('/Form-about', (req, res) => {
 
     const token = req.cookies.token
     if (!token) {
-        return res.status(400).send({msg: 'no cookies found'});
+        return res.status(400).send({ msg: 'no cookies found' });
     }
     if (token) {
         const decodedData = jwt.verify(token, SECRET)
@@ -165,7 +165,7 @@ app.put('/Form-about/Profile-Upload/Url', (req, res) => {
 
     db.query(query, [profile, cover, id], (err, result) => {
         if (err) return res.send(err)
-            
+
         if (result.affectedRows === 0) {
             return res.status(401).send(id)
         }
@@ -204,5 +204,30 @@ app.post('/Profile-page', (req, res) => {
 
 
     } catch (err) { console.log(err) }
+
+})
+
+// post search 
+
+app.post('/Search', (req, res) => {
+    const { searchValue } = req.body;
+    try {
+        const query = 'SELECT id, name, lastName FROM userprofile WHERE MATCH(name, lastName) AGAINST(?)';
+
+        db.query(query, [searchValue], (err, result) => {
+            if (err) return console.log(err)
+
+                if(result.length === 0){
+                  return  res.status(404).send({msg: 'user not found'})
+                }
+                
+                    res.json(result)
+                
+        })
+
+        
+    } catch (err) {
+        console.log(err)
+    }
 
 })

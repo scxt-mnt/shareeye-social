@@ -4,10 +4,11 @@ import DashBoardNav from "./DashBoardNav";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { FormAbout } from "../axios instances/publicInstance";
-import { setUser } from "../userSlice";
+import { setUser } from "../Redux Slice/userSlice";
 import { getDetails } from "../axios instances/uploads";
-import { setDetails } from "../detailsProfileSlice";
+import { setDetails } from "../Redux Slice/detailsProfileSlice";
 import { Link } from "react-router-dom";
+
 const DashBoard = () => {
   const selector = useSelector((state: RootState) => state.user.value);
   const profileSelector = useSelector((state: RootState) => state.profile.value);

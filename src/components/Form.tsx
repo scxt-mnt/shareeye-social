@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux"
 import type { RootState } from "../Store";
 import { useDispatch } from "react-redux";
-import { setUser } from "../userSlice";
+import { setUser } from "../Redux Slice/userSlice";
 import { useEffect, useRef, useState } from "react";
 import { FormAbout } from "../axios instances/publicInstance";
 import type { AxiosError } from "axios";

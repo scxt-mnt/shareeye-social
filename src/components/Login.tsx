@@ -7,7 +7,7 @@ import passwordLogo from '../assets/password.png'
 import { Link, useNavigate } from 'react-router-dom';
 import { SignIn } from '../axios instances/publicInstance';
 import { useDispatch } from 'react-redux';
-import { setUser } from '../userSlice'
+import { setUser } from '../Redux Slice/userSlice'
 
 const Login = () => {
     const [username, setUsername] = useState<string>("");
