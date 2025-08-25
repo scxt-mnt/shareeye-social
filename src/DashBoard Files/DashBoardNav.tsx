@@ -27,7 +27,8 @@ const DashBoardNav = () => {
         setSearchValue(e.target.value)
     }
     useEffect(() => {
-        if (!searchValue) {
+        if (!searchValue || !isFocus) {
+            setSearchValue("");
             dispatch(setClear())
         }
         setTimeout(() => {
@@ -72,17 +73,31 @@ const DashBoardNav = () => {
                 }
             </main>
             {isFocus &&
-                <section className='w-[18rem] h-auto bg-white absolute rounded-xl flex flex-col pb-2 pt-2 shadow-lg items-center gap-4'>
-                    {selector.map(((fields) => {
-                        return (
-                            <section key={fields.id} className='w-auto h-auto pt-3 pb-3 pl-2 flex flex-row gap-2 text-lg font-poppins -ml-10 border-l-2 border-violet-900'>
-                                {fields.profileImage && <img src={fields.profileImage} className='w-[2rem] h-[2rem] rounded-full border-2 border-violet-900 ' />}
-                                <p>{fields.name}</p>
-                                <p>{fields.lastName}</p>
-                            </section>)
-                    }))}
+                <>
+                    {selector.length !== 0 ?
+                        <section className='w-[18rem] h-auto bg-white absolute rounded-xl flex flex-col pb-2 pt-2 shadow-lg items-center gap-4'>
 
-                </section>}
+                            {selector.map(((fields) => {
+                                return (
+                                    <section key={fields.id} className='w-auto h-auto pt-3 pb-3 pl-2 flex flex-row gap-2 text-lg font-poppins -ml-10 border-l-2 border-violet-900'>
+                                        {fields.profileImage && <img src={fields.profileImage} className='w-[2rem] h-[2rem] rounded-full border-2 border-violet-900 ' />}
+                                        <p>{fields.name}</p>
+                                        <p>{fields.lastName}</p>
+                                    </section>)
+                            }))}
+
+                        </section> 
+                        : 
+                        <section className='w-[18rem] h-auto bg-white absolute rounded-xl flex flex-col pb-2 pt-2 shadow-lg items-center gap-4'>
+                            <h1 className='text-md text-gray-500'>no searches</h1>
+                        </section>
+
+                    }
+
+                </>
+            }
+
+
 
 
         </>
