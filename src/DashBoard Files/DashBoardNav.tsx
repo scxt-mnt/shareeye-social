@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { setSearch } from '../Redux Slice/SearchSlice'
 import { useSelector } from 'react-redux';
 import type { RootState } from '../Store';
+import { setClear } from '../Redux Slice/SearchSlice';
 const DashBoardNav = () => {
     const [isFocus, setIsFocus] = useState<boolean>(false)
     const inputFocus = useRef<HTMLInputElement | null>(null);
@@ -26,8 +27,12 @@ const DashBoardNav = () => {
         setSearchValue(e.target.value)
     }
     useEffect(() => {
+        if (!searchValue) {
+            dispatch(setClear())
+        }
         setTimeout(() => {
             const getSearch = async () => {
+
                 if (searchValue) {
                     const res = await fetchSearch.post('/', { searchValue: searchValue })
 
@@ -36,21 +41,22 @@ const DashBoardNav = () => {
                     }
 
                     if (res.status === 200) {
-                        dispatch(setSearch(res.data));
+                        dispatch(setSearch(res.data))
                     }
+
+
                 }
             }
             getSearch();
         }, 1000)
 
-    }, [searchValue, dispatch])
-
+    }, [searchValue, dispatch, isFocus])
 
     return (
         <>
 
 
-            <main className='w-full h-[55px] bg-violet-700 flex flex-row items-center gap-2 sticky top-0 z-50  '>
+            <main className='w-full h-[55px] bg-violet-700 flex flex-ro~w items-center gap-2 sticky top-0 z-50  '>
                 {isFocus === false &&
                     <figure>
                         <img src={logo} alt='image didnt reload' className='w-[2.5rem] ml-[5px] z-0' />
@@ -61,15 +67,24 @@ const DashBoardNav = () => {
 
                 {isFocus &&
 
-                    <input value={searchValue} onChange={handleSearch} ref={inputFocus} onBlur={handleFocus}
+                    <input onChange={handleSearch} ref={inputFocus} onBlur={handleFocus}
                         placeholder='Search Sheereye' src='text' className='rounded-full pl-4 p-[3px] placeholder:text-violet-900 outline-none z-20' />
                 }
             </main>
-            {selector.map((fields) => {
-                return(
-                <div className='w-[18rem] h-auto bg-white absolute rounded flex justify-center pb-2 pt-2  shadow-lg'><p className=''>{fields.name}</p></div>) 
-            })}
-        
+            {isFocus &&
+                <section className='w-[18rem] h-auto bg-white absolute rounded-xl flex flex-col pb-2 pt-2 shadow-lg items-center gap-4'>
+                    {selector.map(((fields) => {
+                        return (
+                            <section key={fields.id} className='w-auto h-auto pt-3 pb-3 pl-2 flex flex-row gap-2 text-lg font-poppins -ml-10 border-l-2 border-violet-900'>
+                                {fields.profileImage && <img src={fields.profileImage} className='w-[2rem] h-[2rem] rounded-full border-2 border-violet-900 ' />}
+                                <p>{fields.name}</p>
+                                <p>{fields.lastName}</p>
+                            </section>)
+                    }))}
+
+                </section>}
+
+
         </>
     )
 }

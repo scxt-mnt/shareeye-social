@@ -212,7 +212,7 @@ app.post('/Profile-page', (req, res) => {
 app.post('/Search', (req, res) => {
     const { searchValue } = req.body;
     try {
-        const query = 'SELECT id, name, lastName FROM userprofile WHERE MATCH(name, lastName) AGAINST(?)';
+        const query = 'SELECT id, name, lastName, profileImage FROM userprofile WHERE MATCH(name, lastName) AGAINST(?)';
 
         db.query(query, [searchValue], (err, result) => {
             if (err) return console.log(err)

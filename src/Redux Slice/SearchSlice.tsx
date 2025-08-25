@@ -2,8 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface stateValues {
         id: number | null,
-        name: string,
-        lastName: string
+        profileImage: string,
+        name: string ,
+        lastName: string 
 }
 
 interface dataValues{
@@ -20,9 +21,13 @@ const searchSlice = createSlice({
     reducers: {
         setSearch(state, action) {
             state.value = action.payload
+        },
+        setClear(state){
+            state.value = []
         }
     }
+    
 })
 
-export const { setSearch } = searchSlice.actions;
+export const { setSearch,setClear } = searchSlice.actions;
 export default searchSlice.reducer
