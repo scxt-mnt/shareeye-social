@@ -6,6 +6,7 @@ import { setSearch } from '../Redux Slice/SearchSlice'
 import { useSelector } from 'react-redux';
 import type { RootState } from '../Store';
 import { setClear } from '../Redux Slice/SearchSlice';
+import { Link } from 'react-router-dom';
 const DashBoardNav = () => {
     const [isFocus, setIsFocus] = useState<boolean>(false)
     const inputFocus = useRef<HTMLInputElement | null>(null);
@@ -68,8 +69,8 @@ const DashBoardNav = () => {
 
                 {isFocus &&
 
-                    <input onChange={handleSearch} ref={inputFocus} onBlur={handleFocus}
-                        placeholder='Search Sheereye' src='text' className='rounded-full pl-4 p-[3px] placeholder:text-violet-900 outline-none z-20' />
+                    <input onChange={handleSearch} ref={inputFocus} 
+                        placeholder='Search Sheereye' className='rounded-full pl-4 p-[3px] placeholder:text-violet-900 outline-none z-20' />
                 }
             </main>
             {isFocus &&
@@ -79,11 +80,11 @@ const DashBoardNav = () => {
 
                             {selector.map(((fields) => {
                                 return (
-                                    <section key={fields.id} className='w-auto h-auto pt-3 pb-3 pl-2 flex flex-row gap-2 text-lg font-poppins -ml-10 border-l-2 border-violet-900'>
+                                    <Link to='/Profile-page'><section key={fields.id} className='w-auto h-auto pt-3 pb-3 pl-2 flex flex-row gap-2 text-lg font-poppins -ml-10 border-l-2 border-violet-900'>
                                         {fields.profileImage && <img src={fields.profileImage} className='w-[2rem] h-[2rem] rounded-full border-2 border-violet-900 ' />}
                                         <p>{fields.name}</p>
                                         <p>{fields.lastName}</p>
-                                    </section>)
+                                    </section></Link>)
                             }))}
 
                         </section> 
