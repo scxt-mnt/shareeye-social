@@ -50,7 +50,7 @@ const DashBoardNav = () => {
                 }
             }
             getSearch();
-        }, 1000)
+        }, 200)
 
     }, [searchValue, dispatch, isFocus])
 
@@ -80,7 +80,7 @@ const DashBoardNav = () => {
 
                             {selector.map(((fields) => {
                                 return (
-                                    <Link to='/Profile-page'><section key={fields.id} className='w-auto h-auto pt-3 pb-3 pl-2 flex flex-row gap-2 text-lg font-poppins -ml-10 border-l-2 border-violet-900'>
+                                    <Link to={`View-Profile/${fields.id}`}><section key={fields.id} className='w-auto h-auto pt-3 pb-3 pl-2 flex flex-row gap-2 text-lg font-poppins -ml-10 border-l-2 border-violet-900'>
                                         {fields.profileImage && <img src={fields.profileImage} className='w-[2rem] h-[2rem] rounded-full border-2 border-violet-900 ' />}
                                         <p>{fields.name}</p>
                                         <p>{fields.lastName}</p>
