@@ -124,7 +124,7 @@ app.post('/Form-about', (req, res) => {
         res.status(200).send('saved info');
     })
 });
-
+// get cookie
 app.get('/Form-about', (req, res) => {
 
     const token = req.cookies.token
@@ -141,6 +141,7 @@ app.get('/Form-about', (req, res) => {
 
 app.post('/Form-about/Profile-Upload', async (req, res) => {
     const { image } = req.body
+
 
 
     if (!image) return res.status(400).send('No image provided');
@@ -160,10 +161,20 @@ app.post('/Form-about/Profile-Upload', async (req, res) => {
 // url update
 
 app.put('/Form-about/Profile-Upload/Url', (req, res) => {
+    const cookie = req.cookies.token
+
+    if(!cookie){
+        return console.log('no token found');
+    }
+
+    if(cookie){
+        
+        const decodedToken = jwt.verify(cookie, SECRET)
+    
     const { profile, cover, id } = req.body
     const query = 'UPDATE userprofile SET profileImage = ?, cover = ? WHERE id = ?'
 
-    db.query(query, [profile, cover, id], (err, result) => {
+    db.query(query, [profile, cover, decodedToken.id], (err, result) => {
         if (err) return res.send(err)
 
         if (result.affectedRows === 0) {
@@ -172,7 +183,7 @@ app.put('/Form-about/Profile-Upload/Url', (req, res) => {
 
         res.status(200).send("successfully store profile");
     })
-})
+}})
 
 
 

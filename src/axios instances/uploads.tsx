@@ -7,7 +7,8 @@ const storePhoto = axios.create({
 
 const uploadsUrl = axios.create({
     baseURL: 'http://localhost:5000/Form-about/Profile-Upload/Url',
-    headers: { 'Content-Type': 'application/json' }
+    headers: { 'Content-Type': 'application/json' },
+    withCredentials:true
 })
 
 const getDetails = axios.create({
