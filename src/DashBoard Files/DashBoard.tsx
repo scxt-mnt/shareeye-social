@@ -63,7 +63,7 @@ const DashBoard = () => {
           <Link to='/Profile-page'><img src={profileSelector.profileUrl} className='w-[2.5rem] h-[2.5rem] bg-white ml-5 rounded-full cursor-pointer'></img>
           </Link>
           <Link to="/Posting-Sheereye">
-            <input placeholder='post something' type='text' className='pl-10 p-1  rounded-full outline-none placeholder:m-[10rem]' /></Link>
+            <input  placeholder='post something' type='text' className='pl-10 p-1  rounded-full outline-none placeholder:m-[10rem]' /></Link>
         </section>
       </>
         : <h1>{`Authentication error`}</h1>
