@@ -60,9 +60,10 @@ const DashBoard = () => {
       {selector.isLog ? <>
         <DashBoardNav />
         <section className='w-screen h-20 shadow mt-2 flex flex-row items-center gap-4 shadow-lg'>
-          <Link to='/Profile-page'><img src={profileSelector.profileUrl} className='w-[3rem] h-[3rem] bg-white ml-5 rounded-full cursor-pointer'></img>
+          <Link to='/Profile-page'><img src={profileSelector.profileUrl} className='w-[2.5rem] h-[2.5rem] bg-white ml-5 rounded-full cursor-pointer'></img>
           </Link>
-          <input placeholder='post something' type='text' className='pl-10 p-1  rounded-full outline-none placeholder:m-[10rem]' />
+          <Link to="/Posting-Sheereye">
+            <input placeholder='post something' type='text' className='pl-10 p-1  rounded-full outline-none placeholder:m-[10rem]' /></Link>
         </section>
       </>
         : <h1>{`Authentication error`}</h1>

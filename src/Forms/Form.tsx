@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { FormAbout } from "../axios instances/publicInstance";
 import type { AxiosError } from "axios";
 import { Link } from "react-router-dom";
-import LoadingAnimation from "./LoadingAnimation";
+import LoadingAnimation from "../components/LoadingAnimation";
 const Form = () => {
     const selector = useSelector((state: RootState) => state.user.value);
     const dispatch = useDispatch();

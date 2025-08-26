@@ -1,12 +1,13 @@
 import { Routes, Route } from 'react-router-dom'
-import SignUp from '../components/SignUp'
-import Login from '../components/Login'
+import SignUp from '../Forms/SignUp'
+import Login from '../Forms/Login'
 import LandingPage from '../components/LandingPage'
 import DashBoard from '../DashBoard Files/DashBoard'
-import Form from '../components/Form'
+import Form from '../Forms/Form'
 import Profile from '../Profiles/Profile'
 import ProfilePage from '../Profiles/ProfilePage'
 import ViewProfile from '../Profiles/ViewProfile'
+import Posting from '../Forms/Posting'
 const routes = () => {
   return (
     <>
@@ -19,6 +20,7 @@ const routes = () => {
         <Route path="Form-about/Profile-Upload" element={<Profile />} />
         <Route path="Profile-page" element={<ProfilePage />}></Route>
         <Route path="DashBoard/View-Profile/:id" element={<ViewProfile />} />
+        <Route path="/Posting-Sheereye" element={<Posting />}/>
       </Routes>
     </>
   )
