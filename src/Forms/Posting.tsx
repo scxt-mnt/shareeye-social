@@ -112,20 +112,24 @@ const Posting = () => {
                 </section>
                 {active === "images" ?
                     <>
-                        <main className="w-[20rem] h-[27rem] bg-white shadow-2xl rounded-2xl flex flex-col items-center">
+                        <main className="w-auto ml-2 mr-2 h-[27rem] bg-white shadow-2xl rounded-2xl flex flex-col items-center p-2">
                             <figure className="self-start ml-3 mt-3 h-auto w-auto absolute flex flex-row gap-2 font-bold justify-center">
                                 <img src={infoSelector.profileUrl} className='w-[1.6rem] h-[1.6rem] rounded-full' />
                                 <figcaption><h1>{`${infoSelector.name} ${infoSelector.lastName}`}</h1></figcaption>
                             </figure>
-                            <textarea value={captionWithImage} onChange={(e) => setCaptionWithImage(e.target.value)} placeholder='type your captions here' className='w-[20rem] h-auto p-10 mt-5 outline-none ' />
-                            <div className='w-[17rem] bg-gray-300 h-[2px] -mt-10 ' />
+                            <textarea value={captionWithImage} onChange={(e) => setCaptionWithImage(e.target.value)} placeholder='type your captions here' className='w-[20rem] h-[1rem] p-10 mt-5 outline-none ' />
+                            <div className='w-[17rem] bg-gray-300 h-[2px]  ' />
                             <input ref={showFile} type="file" accept="image/*" className='hidden' onChange={handleFileInput} />
                             {preview ?
-                                <img src={preview && preview}  />  :
+                                <div className="h-auto w-auto relative">
+                                    <img src={preview && preview} className="  h-[18rem] mt-3 rounded-xl" />
+                                    <button onClick={() => setPreview("")} className='absolute text-sm right-2 text-red-900 '>delete</button>
+                                </div>
+                                :
                                 <button onClick={handleClick} className='w-[18rem] h-[16rem] mt-8 rounded-xl border-2 border-violet-400 text-gray-500'>insert an image</button>
                             }
                         </main>
-                        <button onClick={() => handleWithImage(image)} className={` w-[1px] transition-all duration-1000 absolute right-0 bottom-10 font-bold text-white bg-violet-500  ${captionWithImage ? 'pr-[3.5rem] pl-[1.5rem]' : ''}`}>post</button>
+                        <button onClick={() => handleWithImage(image)} className={` w-[1px] transition-all duration-1000 absolute right-0 bottom-10 font-bold text-white bg-violet-500  ${captionWithImage && preview ? 'pr-[3.5rem] pl-[1.5rem] ' : ''}`}>post</button>
                     </>
 
 
