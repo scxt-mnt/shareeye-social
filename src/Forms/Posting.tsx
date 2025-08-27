@@ -5,7 +5,9 @@ import { useSelector } from "react-redux";
 import { getDetails } from "../axios instances/uploads";
 import { setDetails } from "../Redux Slice/detailsProfileSlice";
 import { setUser } from "../Redux Slice/userSlice";
+import { storePhoto } from "../axios instances/uploads";
 import type { RootState } from '../Store'
+
 
 const Posting = () => {
     const showFile = useRef<HTMLInputElement | null>(null);
@@ -13,7 +15,8 @@ const Posting = () => {
     const dispatch = useDispatch();
     const selector = useSelector((state: RootState) => state.user.value)
     const infoSelector = useSelector((state: RootState) => state.profile.value)
-
+    const [captionWithImage, setCaptionWithImage] = useState<string>("");
+    const [image, setImage] = useState<File | null>(null);
     useEffect(() => {
         const getToken = async () => {
             const res = await FormAbout.get('/');
@@ -57,6 +60,36 @@ const Posting = () => {
         if (showFile) showFile.current?.click()
     }
 
+    const Base64 = (image: File): Promise<string> => {
+        return new Promise((resolve, reject) => {
+            try {
+                const reader = new FileReader();
+                reader.readAsDataURL(image);
+                reader.onloadend = () => {
+                    if (reader.result) {
+                        resolve(reader.result as string)
+                    }
+                }
+            } catch (e) {
+                reject(console.log(e))
+            }
+        })
+
+    }
+
+    const handleWithImage = async (postImage: File | null) => {
+        if (postImage) {
+            const baseTo64 = await Base64(postImage)
+            const res = await storePhoto.post('/', {image: baseTo64})
+            if(res.status === 401){
+                return console.log("error occured")
+            }
+            else if(res.status === 200){
+                console.log(res.data)
+            }
+        }
+    }
+
     return (
         <>
 
@@ -67,16 +100,25 @@ const Posting = () => {
                             <button key={index} onClick={() => setActive(fields.value)} className={`pt-[2px] pb-[2px] pr-[20px] pl-[20px] rounded-xl transition-bg duration-700 ${active === fields.value ? 'bg-violet-400' : 'bg-violet-500'}`}>{fields.name}</button>)
                     })}
                 </section>
-                {active === "images" ? <main className="w-[20rem] h-[27rem] bg-white shadow-2xl rounded-2xl flex flex-col items-center">
-                    <figure className="self-start ml-3 mt-3 h-auto w-auto absolute flex flex-row gap-2 font-bold justify-center">
-                        <img src={infoSelector.profileUrl} className='w-[1.6rem] h-[1.6rem] rounded-full' />
-                        <figcaption><h1>{`${infoSelector.name} ${infoSelector.lastName}`}</h1></figcaption>
-                    </figure>
-                    <textarea placeholder='type your captions here' className='w-[20rem] h-auto p-10 mt-5 outline-none ' />
-                    <div className='w-[17rem] bg-gray-300 h-[2px] -mt-10 ' />
-                    <input ref={showFile} type="file" accept="image/*" className='hidden' />
-                    <button onClick={handleClick} className='w-[18rem] h-[16rem] mt-8 rounded-xl border-2 border-violet-400 text-gray-500'>insert an image</button>
-                </main>
+                {active === "images" ?
+                    <>
+                        <main className="w-[20rem] h-[27rem] bg-white shadow-2xl rounded-2xl flex flex-col items-center">
+                            <figure className="self-start ml-3 mt-3 h-auto w-auto absolute flex flex-row gap-2 font-bold justify-center">
+                                <img src={infoSelector.profileUrl} className='w-[1.6rem] h-[1.6rem] rounded-full' />
+                                <figcaption><h1>{`${infoSelector.name} ${infoSelector.lastName}`}</h1></figcaption>
+                            </figure>
+                            <textarea value={captionWithImage} onChange={(e) => setCaptionWithImage(e.target.value)} placeholder='type your captions here' className='w-[20rem] h-auto p-10 mt-5 outline-none ' />
+                            <div className='w-[17rem] bg-gray-300 h-[2px] -mt-10 ' />
+                            <input ref={showFile} type="file" accept="image/*" className='hidden' onChange={e => {
+                                const img = e.target.files?.[0] || null
+                                setImage(img)
+                            }} />
+                            <button onClick={handleClick} className='w-[18rem] h-[16rem] mt-8 rounded-xl border-2 border-violet-400 text-gray-500'>insert an image</button>
+                        </main>
+                        <button onClick={() => handleWithImage(image)} className={` w-[1px] transition-all duration-1000 absolute right-0 bottom-10 font-bold text-white bg-violet-500  ${captionWithImage ? 'pr-[3.5rem] pl-[1.5rem]' : ''}`}>post</button>
+                    </>
+
+
                     : <main className="w-[20rem] h-[20rem] bg-white shadow-2xl rounded-2xl flex flex-col justify-center relative">
                         <figure className="self-start ml-3 mt-3 h-auto w-auto absolute flex flex-row gap-2 font-bold justify-center top-0">
                             <img src={infoSelector.profileUrl} className='w-[1.6rem] h-[1.6rem] rounded-full' />
