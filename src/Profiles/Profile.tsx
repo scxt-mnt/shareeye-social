@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { storePhoto } from "../axios instances/uploads";
-import LoadingAnimation from "../components/LoadingAnimation";
+import LoadingAnimation from "../animations/LoadingAnimation";
 import { useSelector } from "react-redux";
 import type { RootState } from "../Store";
 import { uploadsUrl } from "../axios instances/uploads";
@@ -64,23 +64,23 @@ const Profile = () => {
         e.preventDefault();
     }
 
-    const DataToBase64 = (file: File | null): Promise<string> => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            if (file) {
-                reader.readAsDataURL(file)
-                reader.onloadend = () => {
-                    if (reader.result) {
-                        resolve((reader.result as string))
+        const DataToBase64 = (file: File | null): Promise<string> => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                if (file) {
+                    reader.readAsDataURL(file)
+                    reader.onloadend = () => {
+                        if (reader.result) {
+                            resolve((reader.result as string))
+                        }
                     }
+                } else {
+                    reject(new Error('file failed to read'));
                 }
-            } else {
-                reject(new Error('file failed to read'));
             }
-        }
-        )
+            )
 
-    }
+        }
 
     const handleUploads = async (profile: File | null, cover: File | null) => {
         if (loading.current) loading.current.style.visibility = 'visible'

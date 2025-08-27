@@ -17,6 +17,7 @@ const Posting = () => {
     const infoSelector = useSelector((state: RootState) => state.profile.value)
     const [captionWithImage, setCaptionWithImage] = useState<string>("");
     const [image, setImage] = useState<File | null>(null);
+    const [preview, setPreview] = useState<string>("");
     useEffect(() => {
         const getToken = async () => {
             const res = await FormAbout.get('/');
@@ -60,14 +61,16 @@ const Posting = () => {
         if (showFile) showFile.current?.click()
     }
 
-    const Base64 = (image: File): Promise<string> => {
+    const Base64 = (image: File | null): Promise<string> => {
         return new Promise((resolve, reject) => {
             try {
                 const reader = new FileReader();
-                reader.readAsDataURL(image);
-                reader.onloadend = () => {
-                    if (reader.result) {
-                        resolve(reader.result as string)
+                if (image) {
+                    reader.readAsDataURL(image);
+                    reader.onloadend = () => {
+                        if (reader.result) {
+                            resolve(reader.result as string)
+                        }
                     }
                 }
             } catch (e) {
@@ -77,14 +80,21 @@ const Posting = () => {
 
     }
 
+    const handleFileInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const img = e.target.files?.[0] || null
+        setImage(img)
+        const base64Preview = await Base64(img);
+        setPreview(base64Preview)
+    }
+
     const handleWithImage = async (postImage: File | null) => {
         if (postImage) {
             const baseTo64 = await Base64(postImage)
-            const res = await storePhoto.post('/', {image: baseTo64})
-            if(res.status === 401){
+            const res = await storePhoto.post('/', { image: baseTo64 })
+            if (res.status === 401) {
                 return console.log("error occured")
             }
-            else if(res.status === 200){
+            else if (res.status === 200) {
                 console.log(res.data)
             }
         }
@@ -109,11 +119,11 @@ const Posting = () => {
                             </figure>
                             <textarea value={captionWithImage} onChange={(e) => setCaptionWithImage(e.target.value)} placeholder='type your captions here' className='w-[20rem] h-auto p-10 mt-5 outline-none ' />
                             <div className='w-[17rem] bg-gray-300 h-[2px] -mt-10 ' />
-                            <input ref={showFile} type="file" accept="image/*" className='hidden' onChange={e => {
-                                const img = e.target.files?.[0] || null
-                                setImage(img)
-                            }} />
-                            <button onClick={handleClick} className='w-[18rem] h-[16rem] mt-8 rounded-xl border-2 border-violet-400 text-gray-500'>insert an image</button>
+                            <input ref={showFile} type="file" accept="image/*" className='hidden' onChange={handleFileInput} />
+                            {preview ?
+                                <img src={preview && preview}  />  :
+                                <button onClick={handleClick} className='w-[18rem] h-[16rem] mt-8 rounded-xl border-2 border-violet-400 text-gray-500'>insert an image</button>
+                            }
                         </main>
                         <button onClick={() => handleWithImage(image)} className={` w-[1px] transition-all duration-1000 absolute right-0 bottom-10 font-bold text-white bg-violet-500  ${captionWithImage ? 'pr-[3.5rem] pl-[1.5rem]' : ''}`}>post</button>
                     </>
