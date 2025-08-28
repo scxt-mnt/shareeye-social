@@ -19,6 +19,7 @@ const Posting = () => {
     const [image, setImage] = useState<File | null>(null);
     const [preview, setPreview] = useState<string>("");
     const [captionWithText, setCaptionWithText] = useState<string>();
+    
     useEffect(() => {
         const getToken = async () => {
             const res = await FormAbout.get('/');
@@ -132,8 +133,6 @@ const Posting = () => {
                         </main>
                         <button onClick={() => handleWithImage(image)} className={` w-[1px] transition-all duration-1000 absolute right-0 bottom-10 font-bold text-white bg-violet-500  ${captionWithImage && preview ? 'pr-[3.5rem] pl-[1.5rem] ' : ''}`}>post</button>
                     </>
-
-
                 }
 
                 {active === 'text' &&

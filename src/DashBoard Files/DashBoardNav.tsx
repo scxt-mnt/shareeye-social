@@ -58,7 +58,7 @@ const DashBoardNav = () => {
         <>
 
 
-            <main className='w-full h-[55px] bg-violet-700 flex flex-ro~w items-center gap-2 sticky top-0 z-50  '>
+            <main className='w-full h-[70px] bg-violet-700 flex flex-ro~w items-center gap-2 sticky top-0 z-50  pb-2 pt-2'>
                 {isFocus === false &&
                     <figure>
                         <img src={logo} alt='image didnt reload' className='w-[2.5rem] ml-[5px] z-0' />
@@ -76,7 +76,7 @@ const DashBoardNav = () => {
             {isFocus &&
                 <>
                     {selector.length !== 0 ?
-                        <section className='w-[18rem] h-auto bg-white absolute rounded-xl flex flex-col pb-2 pt-2 shadow-lg items-center gap-4'>
+                        <section className='w-[18rem] h-auto bg-white absolute rounded-xl flex flex-col pb-2 pt-2 shadow-lg items-center gap-4 '>
 
                             {selector.map(((fields) => {
                                 return (
