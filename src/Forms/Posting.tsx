@@ -18,6 +18,7 @@ const Posting = () => {
     const [captionWithImage, setCaptionWithImage] = useState<string>("");
     const [image, setImage] = useState<File | null>(null);
     const [preview, setPreview] = useState<string>("");
+    const [captionWithText, setCaptionWithText] = useState<string>();
     useEffect(() => {
         const getToken = async () => {
             const res = await FormAbout.get('/');
@@ -110,7 +111,7 @@ const Posting = () => {
                             <button key={index} onClick={() => setActive(fields.value)} className={`pt-[2px] pb-[2px] pr-[20px] pl-[20px] rounded-xl transition-bg duration-700 ${active === fields.value ? 'bg-violet-400' : 'bg-violet-500'}`}>{fields.name}</button>)
                     })}
                 </section>
-                {active === "images" ?
+                {active === "images" &&
                     <>
                         <main className="w-auto ml-2 mr-2 h-[27rem] bg-white shadow-2xl rounded-2xl flex flex-col items-center p-2">
                             <figure className="self-start ml-3 mt-3 h-auto w-auto absolute flex flex-row gap-2 font-bold justify-center">
@@ -133,14 +134,25 @@ const Posting = () => {
                     </>
 
 
-                    : <main className="w-[20rem] h-[20rem] bg-white shadow-2xl rounded-2xl flex flex-col justify-center relative">
-                        <figure className="self-start ml-3 mt-3 h-auto w-auto absolute flex flex-row gap-2 font-bold justify-center top-0">
-                            <img src={infoSelector.profileUrl} className='w-[1.6rem] h-[1.6rem] rounded-full' />
-                            <figcaption><h1>{`${infoSelector.name} ${infoSelector.lastName}`}</h1></figcaption>
-                        </figure>
-                        <textarea placeholder={`what's on your mind?`} className='w-[20rem] h-auto p-5  outline-none text-center' />
-                    </main>
                 }
+
+                {active === 'text' &&
+                    <>
+
+                        <main className="w-[20rem] h-[20rem] bg-white shadow-2xl rounded-2xl flex flex-col justify-center relative">
+                            <figure className="self-start ml-3 mt-3 h-auto w-auto absolute flex flex-row gap-2 font-bold justify-center top-0">
+                                <img src={infoSelector.profileUrl} className='w-[1.6rem] h-[1.6rem] rounded-full' />
+                                <figcaption><h1>{`${infoSelector.name} ${infoSelector.lastName}`}</h1></figcaption>
+                            </figure>
+                            <textarea value={captionWithText} onChange={(e) => setCaptionWithText(e.target.value)} placeholder={`what's on your mind?`} className='w-[20rem] h-auto p-5  outline-none text-center' />
+                        </main>
+                        <button onClick={() => handleWithImage(image)} className={` w-[1px] transition-all duration-1000 absolute right-0 bottom-10 font-bold text-white bg-violet-500  ${captionWithText ? 'pr-[3.5rem] pl-[1.5rem] ' : ''}`}>post</button>
+
+                    </>
+
+                }
+
+
 
 
             </main>
