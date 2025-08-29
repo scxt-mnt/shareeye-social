@@ -6,4 +6,5 @@ const posting = axios.create({
     withCredentials: true
 })
 
+
 export { posting }

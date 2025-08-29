@@ -8,11 +8,21 @@ import { setUser } from "../Redux Slice/userSlice";
 import { getDetails } from "../axios instances/GlobalUpload";
 import { setDetails } from "../Redux Slice/detailsProfileSlice";
 import { Link } from "react-router-dom";
-
+import noColorHeart from "../assets/noColorHeart.png"
+import coloredHeart from "../assets/coloredHeart.png"
+import { useState } from "react";
+import commentIcon from "../assets/commentIcon.png"
 const DashBoard = () => {
   const selector = useSelector((state: RootState) => state.user.value);
   const profileSelector = useSelector((state: RootState) => state.profile.value);
   const dispatch = useDispatch();
+  const [isLike, setIsLike] = useState<boolean>(false);
+
+
+
+
+
+
   useEffect(() => {
     const getToken = async () => {
       try {
@@ -58,18 +68,28 @@ const DashBoard = () => {
   return (
     <>
       {selector.isLog ? <>
-          <DashBoardNav />
-                  <main className='w-screen h-screen flex flex-col items-center overflow-auto'>
-          <section className='w-screen h-[10rem] shadow flex flex-row gap-4 shadow-lg pt-4 pb-4 items-center'>
+        <DashBoardNav />
+        <main className='w-screen h-screen flex flex-col items-center overflow-auto'>
+          <section className='w-screen h-auto shadow flex flex-row gap-4 shadow-lg pt-3 pb-3 items-center'>
             <Link to='/Profile-page'><img src={profileSelector.profileUrl} className='w-[2.5rem] h-[2.5rem] bg-white ml-5 rounded-full cursor-pointer'></img>
             </Link>
             <Link to="/Posting-Sheereye">
-              <input placeholder='post something' type='text' className='pl-10 p-1  rounded-full outline-none placeholder:m-[10rem]' /></Link>
+              <input placeholder='post something' type='text' className='pl-10 p-1 rounded-full outline-none placeholder:m-[10rem]' /></Link>
           </section>
           <section className='flex flex-col gap-5 mt-5'>
             <div className='w-[22rem] h-[25rem] bg-white  shadow shadow-xl rounded-xl'>
+              {isLike ?
+                <button onClick={() => setIsLike((prevState: boolean) => !prevState)}><img src={coloredHeart} alt="" /></button>
+                :
+                <button onClick={() => setIsLike((prevState: boolean) => !prevState)}><img src={noColorHeart} alt="" /></button>}
+              <button><img src={commentIcon} alt="" /></button>
             </div>
             <div className='w-[22rem] h-[25rem] bg-white  shadow shadow-xl rounded-xl'>
+              {isLike ?
+                <button onClick={() => setIsLike((prevState: boolean) => !prevState)}><img src={coloredHeart} alt="" /></button>
+                :
+                <button onClick={() => setIsLike((prevState: boolean) => !prevState)}><img src={noColorHeart} alt="" /></button>}
+              <button><img src={commentIcon} alt="" /></button>
             </div>
           </section>
         </main>
