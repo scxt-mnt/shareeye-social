@@ -102,7 +102,7 @@ const Posting = () => {
                     return console.log("error occured")
                 }
                 else if (res.status === 200) {
-                    
+
                     if (!res.data.url) return console.log("no image");
 
                     const storePost = await posting.post('/', { caption: captionWithImage, imageUrl: res.data.url })
@@ -134,7 +134,7 @@ const Posting = () => {
                 </section>
                 {active === "images" &&
                     <>
-                        <main className="w-auto ml-2 mr-2 h-[27rem] bg-white shadow-2xl rounded-2xl flex flex-col items-center p-2">
+                        <main className="w-auto ml-2 mr-2 h-auto bg-white shadow-2xl rounded-2xl flex flex-col items-center p-2 pb-5">
                             <figure className="self-start ml-3 mt-3 h-auto w-auto absolute flex flex-row gap-2 font-bold justify-center">
                                 <img src={infoSelector.profileUrl} className='w-[1.6rem] h-[1.6rem] rounded-full' />
                                 <figcaption><h1>{`${infoSelector.name} ${infoSelector.lastName}`}</h1></figcaption>

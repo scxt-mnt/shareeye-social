@@ -76,20 +76,17 @@ const DashBoard = () => {
             <Link to="/Posting-Sheereye">
               <input placeholder='post something' type='text' className='pl-10 p-1 rounded-full outline-none placeholder:m-[10rem]' /></Link>
           </section>
-          <section className='flex flex-col gap-5 mt-5'>
-            <div className='w-[22rem] h-[25rem] bg-white  shadow shadow-xl rounded-xl'>
-              {isLike ?
-                <button onClick={() => setIsLike((prevState: boolean) => !prevState)}><img src={coloredHeart} alt="" /></button>
-                :
-                <button onClick={() => setIsLike((prevState: boolean) => !prevState)}><img src={noColorHeart} alt="" /></button>}
-              <button><img src={commentIcon} alt="" /></button>
-            </div>
-            <div className='w-[22rem] h-[25rem] bg-white  shadow shadow-xl rounded-xl'>
-              {isLike ?
-                <button onClick={() => setIsLike((prevState: boolean) => !prevState)}><img src={coloredHeart} alt="" /></button>
-                :
-                <button onClick={() => setIsLike((prevState: boolean) => !prevState)}><img src={noColorHeart} alt="" /></button>}
-              <button><img src={commentIcon} alt="" /></button>
+          <section className='flex flex-col gap-5 mt-5 '>
+            <div className='w-[24rem] h-[25rem] bg-white shadow shadow-xl rounded-xl flex flex-col justify-end '>
+              <div className='w-full h-2 border-t border-gray-400'></div>
+              <div className='w-full ml-3 mb-2 flex gap-2 '>
+                {isLike ?
+                  <button key={"like"} onClick={() => setIsLike((prevState: boolean) => !prevState)}><img src={coloredHeart} alt=""
+                  /></button>
+                  :
+                  <button key={"notLike"} onClick={() => setIsLike((prevState: boolean) => !prevState)}><img src={noColorHeart} alt="" /></button>}
+                <button><img src={commentIcon} alt="" /></button>
+              </div>
             </div>
           </section>
         </main>
