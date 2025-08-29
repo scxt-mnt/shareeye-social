@@ -1,12 +1,12 @@
 
 import { useEffect } from 'react'
-import { FormAbout } from '../axios instances/publicInstance'
+import { FormAbout } from '../axios instances/GlobalAuth'
 import { AxiosError } from 'axios'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../Store';
 import { setUser } from '../Redux Slice/userSlice'
-import { getDetails } from '../axios instances/uploads'
+import { getDetails } from '../axios instances/GlobalUpload'
 import { setDetails } from '../Redux Slice/detailsProfileSlice'
 import { useParams } from 'react-router-dom'
 

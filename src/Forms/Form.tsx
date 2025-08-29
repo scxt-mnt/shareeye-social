@@ -3,7 +3,7 @@ import type { RootState } from "../Store";
 import { useDispatch } from "react-redux";
 import { setUser } from "../Redux Slice/userSlice";
 import { useEffect, useRef, useState } from "react";
-import { FormAbout } from "../axios instances/publicInstance";
+import { FormAbout } from "../axios instances/GlobalAuth";
 import type { AxiosError } from "axios";
 import { Link } from "react-router-dom";
 import LoadingAnimation from "../animations/LoadingAnimation";

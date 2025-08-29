@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react"
-import { FormAbout } from "../axios instances/publicInstance";
+import { FormAbout } from "../axios instances/GlobalAuth";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { getDetails } from "../axios instances/uploads";
+import { getDetails } from "../axios instances/GlobalUpload";
 import { setDetails } from "../Redux Slice/detailsProfileSlice";
 import { setUser } from "../Redux Slice/userSlice";
-import { storePhoto } from "../axios instances/uploads";
+import { storePhoto } from "../axios instances/GlobalUpload";
 import type { RootState } from '../Store'
+import { posting } from "../axios instances/GlobalPost";
 
 
 const Posting = () => {
@@ -19,7 +20,10 @@ const Posting = () => {
     const [image, setImage] = useState<File | null>(null);
     const [preview, setPreview] = useState<string>("");
     const [captionWithText, setCaptionWithText] = useState<string>();
-    
+
+
+
+
     useEffect(() => {
         const getToken = async () => {
             const res = await FormAbout.get('/');
@@ -90,15 +94,31 @@ const Posting = () => {
     }
 
     const handleWithImage = async (postImage: File | null) => {
-        if (postImage) {
-            const baseTo64 = await Base64(postImage)
-            const res = await storePhoto.post('/', { image: baseTo64 })
-            if (res.status === 401) {
-                return console.log("error occured")
+        try {
+            if (postImage) {
+                const baseTo64 = await Base64(postImage)
+                const res = await storePhoto.post('/', { image: baseTo64 })
+                if (res.status === 401) {
+                    return console.log("error occured")
+                }
+                else if (res.status === 200) {
+                    
+                    if (!res.data.url) return console.log("no image");
+
+                    const storePost = await posting.post('/', { caption: captionWithImage, imageUrl: res.data.url })
+
+                    if (storePost.status === 401) {
+                        return console.log(storePost.data.msg);
+                    }
+
+                    console.log(storePost.data.msg);
+                }
+
+
+
             }
-            else if (res.status === 200) {
-                console.log(res.data)
-            }
+        } catch (e) {
+            console.log(e);
         }
     }
 

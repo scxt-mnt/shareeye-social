@@ -1,5 +1,5 @@
 import  { useState } from 'react'
-import SignUp from '../axios instances/publicInstance';
+import SignUp from '../axios instances/GlobalAuth';
 import { AxiosError } from 'axios';
 import usernameLogo from '../assets/username.png'
 import closedPassword from '../assets/closedPassword.png';

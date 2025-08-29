@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect } from "react";
-import { storePhoto } from "../axios instances/uploads";
+import { storePhoto } from "../axios instances/GlobalUpload";
 import LoadingAnimation from "../animations/LoadingAnimation";
 import { useSelector } from "react-redux";
 import type { RootState } from "../Store";
-import { uploadsUrl } from "../axios instances/uploads";
+import { uploadsUrl } from "../axios instances/GlobalUpload";
 import { useDispatch } from "react-redux";
 import { setUser } from '../Redux Slice/userSlice'
-import { FormAbout } from "../axios instances/publicInstance";
+import { FormAbout } from "../axios instances/GlobalAuth";
 const Profile = () => {
 
     const [profileImage, setProfileImage] = useState<File | null>(null);

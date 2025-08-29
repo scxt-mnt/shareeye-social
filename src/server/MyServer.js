@@ -161,27 +161,28 @@ app.post('/Form-about/Profile-Upload', async (req, res) => {
 app.put('/Form-about/Profile-Upload/Url', (req, res) => {
     const cookie = req.cookies.token
 
-    if(!cookie){
+    if (!cookie) {
         return console.log('no token found');
     }
 
-    if(cookie){
-        
+    if (cookie) {
+
         const decodedToken = jwt.verify(cookie, SECRET)
-    
-    const { profile, cover, id } = req.body
-    const query = 'UPDATE userprofile SET profileImage = ?, cover = ? WHERE id = ?'
 
-    db.query(query, [profile, cover, decodedToken.id], (err, result) => {
-        if (err) return res.send(err)
+        const { profile, cover, id } = req.body
+        const query = 'UPDATE userprofile SET profileImage = ?, cover = ? WHERE id = ?'
 
-        if (result.affectedRows === 0) {
-            return res.status(401).send(id)
-        }
+        db.query(query, [profile, cover, decodedToken.id], (err, result) => {
+            if (err) return res.send(err)
 
-        res.status(200).send("successfully store profile");
-    })
-}})
+            if (result.affectedRows === 0) {
+                return res.status(401).send(id)
+            }
+
+            res.status(200).send("successfully store profile");
+        })
+    }
+})
 
 
 
@@ -226,17 +227,36 @@ app.post('/Search', (req, res) => {
         db.query(query, [searchValue], (err, result) => {
             if (err) return console.log(err)
 
-                if(result.length === 0){
-                  return  res.status(404).send({msg: 'user not found'})
-                }
-                
-                    res.json(result)
-                
+            if (result.length === 0) {
+                return res.status(404).send({ msg: 'user not found' })
+            }
+
+            res.json(result)
+
         })
 
-        
+
     } catch (err) {
         console.log(err)
     }
 
+})
+
+// sends post 
+
+app.post('/Posting-Sheereye', (req, res) => {
+    const cookie = req.cookies.token
+    const { caption, imageUrl } = req.body;
+    if (!cookie) {
+        return console.log("no cookie found");
+    }
+
+    if (cookie) {
+        const verifyToken = jwt.verify(cookie, SECRET);
+        const queries = "INSERT INTO userPost(id, caption, imageLink) VALUES(?, ?, ?)";
+        db.query(queries, [verifyToken.id, caption, imageUrl], (err, result) => {
+            if (err) return res.status(401).send({ msg: "posting details failed" })
+            res.status(200).send({ msg: "sent successfully" });
+        })
+    }
 })

@@ -3,9 +3,9 @@ import { useSelector } from "react-redux"
 import DashBoardNav from "./DashBoardNav";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { FormAbout } from "../axios instances/publicInstance";
+import { FormAbout } from "../axios instances/GlobalAuth";
 import { setUser } from "../Redux Slice/userSlice";
-import { getDetails } from "../axios instances/uploads";
+import { getDetails } from "../axios instances/GlobalUpload";
 import { setDetails } from "../Redux Slice/detailsProfileSlice";
 import { Link } from "react-router-dom";
 

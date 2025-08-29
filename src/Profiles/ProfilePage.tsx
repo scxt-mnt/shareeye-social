@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
-import { FormAbout } from '../axios instances/publicInstance'
+import { FormAbout } from '../axios instances/GlobalAuth'
 import { AxiosError } from 'axios'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../Store';
 import { setUser } from '../Redux Slice/userSlice'
-import { getDetails } from '../axios instances/uploads'
+import { getDetails } from '../axios instances/GlobalUpload'
 import { setDetails } from '../Redux Slice/detailsProfileSlice'
 const ProfilePage = () => {
     const selector = useSelector((e: RootState) => e.user.value)
@@ -14,7 +14,6 @@ const ProfilePage = () => {
     useEffect(() => {
         const getCookie = async () => {
             try {
-
                 const res = await FormAbout.get('/');
                 dispatch(setUser({ id: res.data.id, isLog: res.data.isLog }))
             } catch (err) {
@@ -41,8 +40,6 @@ const ProfilePage = () => {
                             profileUrl: res.data.profile,
                             coverUrl: res.data.cover
                         }))
-                        console.log();
-
                     }
                 } catch (err) {
                     const error = err as AxiosError
