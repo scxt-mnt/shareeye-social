@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import jwt from 'jsonwebtoken'
 import cookieParser from 'cookie-parser'
-import axios from 'axios'
 import { v2 as cloudinary } from 'cloudinary';
 dotenv.config();
 
@@ -246,6 +245,7 @@ app.post('/Search', (req, res) => {
 
 app.post('/Posting-Sheereye', (req, res) => {
     const cookie = req.cookies.token
+
     const { caption, imageUrl } = req.body;
     if (!cookie) {
         return console.log("no cookie found");

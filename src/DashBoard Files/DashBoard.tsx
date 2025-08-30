@@ -12,13 +12,12 @@ import noColorHeart from "../assets/noColorHeart.png"
 import coloredHeart from "../assets/coloredHeart.png"
 import { useState } from "react";
 import commentIcon from "../assets/commentIcon.png"
+
 const DashBoard = () => {
   const selector = useSelector((state: RootState) => state.user.value);
   const profileSelector = useSelector((state: RootState) => state.profile.value);
   const dispatch = useDispatch();
-  const [isLike, setIsLike] = useState<boolean>(false);
-
-
+  const [isLike, setIsLike] = useState<number>(0);
 
 
 
@@ -65,7 +64,7 @@ const DashBoard = () => {
   }, [dispatch, selector.id])
 
 
-return (
+  return (
     <>
       {selector.isLog ? <>
         <DashBoardNav />
@@ -80,11 +79,16 @@ return (
             <div className='w-[24rem] h-[25rem] bg-white shadow shadow-xl rounded-xl flex flex-col justify-end '>
               <div className='w-full h-2 border-t border-gray-400 '></div>
               <div className='w-full ml-5 mb-2 flex gap-4 items-center'>
-                {isLike ?
-                  <button key={"like"} onClick={() => setIsLike((prevState: boolean) => !prevState)}><img src={coloredHeart} alt="" className="h-[2rem]"
-                   /></button>
-                  :
-                  <button key={"notLike"} onClick={() => setIsLike((prevState: boolean) => !prevState)}><img src={noColorHeart} alt="" className="h-[2rem]" /></button>}
+                {isLike > 0 ?
+                  <>
+                    <button key={"like"} onClick={() => setIsLike((prevState: number) => prevState - 1)}><img src={coloredHeart} alt="" className="h-[2rem]"
+                    /></button>
+                    <h1>{isLike}</h1>
+                  </>
+                  : <>
+                    <button key={"notLike"} onClick={() => setIsLike((prevState: number) => prevState + 1)}><img src={noColorHeart} alt="" className="h-[2rem]" /></button>
+                    <h1>{isLike > 0 && isLike}</h1>=
+                  </>}
                 <button><img src={commentIcon} alt="" className="h-[2rem]" /></button>
               </div>
             </div>
