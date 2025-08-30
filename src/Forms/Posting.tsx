@@ -140,7 +140,6 @@ const Posting = () => {
                                 <figcaption><h1>{`${infoSelector.name} ${infoSelector.lastName}`}</h1></figcaption>
                             </figure>
                             <textarea value={captionWithImage} onChange={(e) => setCaptionWithImage(e.target.value)} placeholder='type your captions here' className='w-[20rem] h-[1rem] p-10 mt-5 outline-none ' />
-                            <div className='w-[17rem] bg-gray-300 h-[2px]  ' />
                             <input ref={showFile} type="file" accept="image/*" className='hidden' onChange={handleFileInput} />
                             {preview ?
                                 <div className="h-auto w-auto relative">

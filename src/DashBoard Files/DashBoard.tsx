@@ -65,7 +65,7 @@ const DashBoard = () => {
   }, [dispatch, selector.id])
 
 
-  return (
+return (
     <>
       {selector.isLog ? <>
         <DashBoardNav />
@@ -78,14 +78,14 @@ const DashBoard = () => {
           </section>
           <section className='flex flex-col gap-5 mt-5 '>
             <div className='w-[24rem] h-[25rem] bg-white shadow shadow-xl rounded-xl flex flex-col justify-end '>
-              <div className='w-full h-2 border-t border-gray-400'></div>
-              <div className='w-full ml-3 mb-2 flex gap-2 '>
+              <div className='w-full h-2 border-t border-gray-400 '></div>
+              <div className='w-full ml-5 mb-2 flex gap-4 items-center'>
                 {isLike ?
-                  <button key={"like"} onClick={() => setIsLike((prevState: boolean) => !prevState)}><img src={coloredHeart} alt=""
-                  /></button>
+                  <button key={"like"} onClick={() => setIsLike((prevState: boolean) => !prevState)}><img src={coloredHeart} alt="" className="h-[2rem]"
+                   /></button>
                   :
-                  <button key={"notLike"} onClick={() => setIsLike((prevState: boolean) => !prevState)}><img src={noColorHeart} alt="" /></button>}
-                <button><img src={commentIcon} alt="" /></button>
+                  <button key={"notLike"} onClick={() => setIsLike((prevState: boolean) => !prevState)}><img src={noColorHeart} alt="" className="h-[2rem]" /></button>}
+                <button><img src={commentIcon} alt="" className="h-[2rem]" /></button>
               </div>
             </div>
           </section>
